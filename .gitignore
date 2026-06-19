@@ -1,0 +1,41 @@
+# Visual Studio
+.vs/
+*.VC.db
+*.VC.opendb
+
+# Visual Studio build folders
+Debug/
+Release/
+x64/
+x86/
+
+# Build output
+*.obj
+*.o
+*.exe
+*.pdb
+*.ilk
+*.idb
+
+# CMake 
+build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# User-specific Visual Studio settings
+*.user
+*.suo
+
+# Temporary files
+*.tmp
+*.log
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# Backup files
+*.bak
+*.old

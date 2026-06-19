@@ -1,0 +1,3 @@
+ich,first,singular
+er,third,singular
+sie,third,singular
