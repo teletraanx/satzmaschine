@@ -1,1 +1,2 @@
-geh,gehen
+gehen,gehe,gehst,geht,gehen,geht,gehen
+essen,esse,isst,isst,essen,esst,essen

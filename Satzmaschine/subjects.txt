@@ -1,3 +1,5 @@
 ich,first,singular
 er,third,singular
 sie,third,singular
+wir,first,plural
+du,second,singular

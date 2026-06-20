@@ -4,11 +4,25 @@
 using namespace std;
 
 class Verb {
+// verbs.txt: infinitive,ichForm,duForm,thirdSingularForm,wirForm,ihrForm,sieForm
 private:
-    string stem;
     string infinitive;
+    string ichForm;
+    string duForm;
+    string thirdSingularForm;
+    string wirForm;
+    string ihrForm;
+    string sieForm;
 public:
-    Verb(string s, string i); // constructor 
+    // constructor
+    Verb(string infinitive, 
+        string ichForm,
+        string duForm,
+        string thirdSingularForm,
+        string wirForm,
+        string ihrForm,
+        string sieForm
+    );
 
     string conjugate(const Subject& subject) const;
 };

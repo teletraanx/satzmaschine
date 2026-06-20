@@ -2,6 +2,7 @@
 #include <fstream> // for files
 #include <sstream> // for files
 #include <vector>
+#include <random>
 #include "Subject.h"
 #include "Verb.h"
 using namespace std;
@@ -30,32 +31,55 @@ int main()
         subjects.emplace_back(word, person, number); // construct Subject(word, person, number) and append new element to end of vector
     }
     subjectsFile.close();
-    cout << "Successfully loaded list of subjects." << endl;
+    // cout << "Successfully loaded list of subjects." << endl;
 
     // Load Verbs: vector of Verb(string stem, string infinitive) objects
-    //  verbs.txt:
-    //  geh,gehen
+    //  verbs.txt: infinitive,ichForm,duForm,thirdSingularForm,wirForm,ihrForm,sieForm
     vector<Verb> verbs;
     ifstream verbsFile("verbs.txt");
     string verbLine;
 
     while (getline(verbsFile, verbLine)) {
         stringstream ss(verbLine);
-        string stem;
         string infinitive;
+        string ichForm;
+        string duForm;
+        string thirdSingularForm;
+        string wirForm;
+        string ihrForm;
+        string sieForm;
 
-        getline(ss, stem, ',');
         getline(ss, infinitive, ',');
+        getline(ss, ichForm, ',');
+        getline(ss, duForm, ',');
+        getline(ss, thirdSingularForm, ',');
+        getline(ss, wirForm, ',');
+        getline(ss, ihrForm, ',');
+        getline(ss, sieForm, ',');
 
-        verbs.emplace_back(stem, infinitive);
+        verbs.emplace_back(infinitive, ichForm, duForm, thirdSingularForm, wirForm, ihrForm, sieForm);
     }
     verbsFile.close();
-    cout << "Successfully loaded list of verbs." << endl;
+    // cout << "Successfully loaded list of verbs." << endl;
+    if (subjects.empty() || verbs.empty()) {
+        cout << "Failed to load words." << endl;
+        return 1;
+    }
 
     // Generate a random sentence
     //  Choose random Subject
     //  Choose random Verb
     //  Print Subject and correct verb conjugate
+    random_device rd; // get randomness from system
+    mt19937 gen(rd()); // random number generator 
+
+    uniform_int_distribution<> subjectDist(0, subjects.size() - 1); // ability to give random ints between 0 and size of vector-1 with equal probability
+    uniform_int_distribution<> verbDist(0, verbs.size() - 1);
+
+    Subject subject = subjects[subjectDist(gen)]; // generate random number
+    Verb verb = verbs[verbDist(gen)];
+
+    cout << subject.word << " " << verb.conjugate(subject) << "." << endl;
     cout << "Hello World!\n";
 }
 
