@@ -1,5 +1,6 @@
-essen,esse,isst,isst,essen,esst,essen
-gehen,gehe,gehst,geht,gehen,geht,gehen
-haben,habe,hast,hat,haben,habt,haben
-können,kann,kannst,kann,können,könnt,können
-sein,bin,bist,ist,sind,seid,sind
+essen,esse,isst,isst,essen,esst,essen,food
+gehen,gehe,gehst,geht,gehen,geht,gehen,place
+haben,habe,hast,hat,haben,habt,haben,drink|food|thing
+können,kann,kannst,kann,können,könnt,können,activity
+sein,bin,bist,ist,sind,seid,sind,tobe
+trinken,trinke,trinkst,trinkt,trinken,trinkt,trinken,drink

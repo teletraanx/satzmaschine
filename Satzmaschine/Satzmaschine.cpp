@@ -5,6 +5,7 @@
 #include <random>
 #include "Subject.h"
 #include "Verb.h"
+#include "Utility.h"
 using namespace std;
 
 int main()
@@ -48,6 +49,7 @@ int main()
         string wirForm;
         string ihrForm;
         string sieForm;
+        string tagText;
 
         getline(ss, infinitive, ',');
         getline(ss, ichForm, ',');
@@ -56,12 +58,33 @@ int main()
         getline(ss, wirForm, ',');
         getline(ss, ihrForm, ',');
         getline(ss, sieForm, ',');
+        getline(ss, tagText, ',');
 
-        verbs.emplace_back(infinitive, ichForm, duForm, thirdSingularForm, wirForm, ihrForm, sieForm);
+        verbs.emplace_back(infinitive, ichForm, duForm, thirdSingularForm, wirForm, ihrForm, sieForm, splitTags(tagText));
     }
     verbsFile.close();
     // cout << "Successfully loaded list of verbs." << endl;
-    if (subjects.empty() || verbs.empty()) {
+
+    // Load objects(the,word,tags)
+    vector<Object> objects;
+    ifstream objectsFile("objects.txt");
+    string objectsLine;
+
+    while (getline(objectsFile, objectsLine)) {
+        stringstream ss(objectsLine);
+        string the;
+        string word;
+        string objTagText;
+
+        getline(ss, the, ',');
+        getline(ss, word, ',');
+        getline(ss, objTagText, ',');
+
+        objects.emplace_back(the, word, splitTags(objTagText));
+    }
+    objectsFile.close();
+
+    if (subjects.empty() || verbs.empty() || objects.empty()) {
         cout << "Failed to load words." << endl;
         return 1;
     }
@@ -81,10 +104,29 @@ int main()
         Subject subject = subjects[subjectDist(gen)]; // generate random number
         Verb verb = verbs[verbDist(gen)];
 
-        cout << "Say the sentence:" << endl;
-        cout << subject.word << " " << verb.conjugate(subject) << "." << endl;
+        // find valid object
+        vector<Object> validObjects;
+        for (const Object& object : objects) {
+            if (verb.acceptsObject(object)) {
+                validObjects.push_back(object);
+            }
+        }
+        if (!validObjects.empty()) {
+            uniform_int_distribution<> objDist(0, validObjects.size() - 1);
+            Object object = validObjects[objDist(gen)];
 
-        cout << "Press Enter for another sentence or q to quit: ";
+            cout << "Say the sentence:" << endl;
+            cout << subject.word << " " << verb.conjugate(subject) << " " << object.object << "." << endl;
+
+            cout << "Press Enter for another sentence or q to quit: ";
+        }
+        else {
+            cout << "Say the sentence:" << endl;
+            cout << subject.word << " " << verb.conjugate(subject) << "." << endl;
+
+            cout << "Press Enter for another sentence or q to quit: ";
+        }
+
         getline(cin, answer);
     }
     while (answer != "q");
