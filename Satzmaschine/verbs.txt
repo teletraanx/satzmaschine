@@ -1,2 +1,5 @@
-gehen,gehe,gehst,geht,gehen,geht,gehen
 essen,esse,isst,isst,essen,esst,essen
+gehen,gehe,gehst,geht,gehen,geht,gehen
+haben,habe,hast,hat,haben,habt,haben
+können,kann,kannst,kann,können,könnt,können
+sein,bin,bist,ist,sind,seid,sind

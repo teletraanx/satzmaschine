@@ -66,21 +66,28 @@ int main()
         return 1;
     }
 
-    // Generate a random sentence
-    //  Choose random Subject
-    //  Choose random Verb
-    //  Print Subject and correct verb conjugate
-    random_device rd; // get randomness from system
-    mt19937 gen(rd()); // random number generator 
+    string answer;
+    do {
+        // Generate a random sentence
+        //  Choose random Subject
+        //  Choose random Verb
+        //  Print Subject and correct verb conjugate
+        random_device rd; // get randomness from system
+        mt19937 gen(rd()); // random number generator 
 
-    uniform_int_distribution<> subjectDist(0, subjects.size() - 1); // ability to give random ints between 0 and size of vector-1 with equal probability
-    uniform_int_distribution<> verbDist(0, verbs.size() - 1);
+        uniform_int_distribution<> subjectDist(0, subjects.size() - 1); // ability to give random ints between 0 and size of vector-1 with equal probability
+        uniform_int_distribution<> verbDist(0, verbs.size() - 1);
 
-    Subject subject = subjects[subjectDist(gen)]; // generate random number
-    Verb verb = verbs[verbDist(gen)];
+        Subject subject = subjects[subjectDist(gen)]; // generate random number
+        Verb verb = verbs[verbDist(gen)];
 
-    cout << subject.word << " " << verb.conjugate(subject) << "." << endl;
-    cout << "Hello World!\n";
+        cout << "Say the sentence:" << endl;
+        cout << subject.word << " " << verb.conjugate(subject) << "." << endl;
+
+        cout << "Press Enter for another sentence or q to quit: ";
+        getline(cin, answer);
+    }
+    while (answer != "q");
 }
 
 
