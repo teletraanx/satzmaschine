@@ -1,2 +1,4 @@
-das,Brot,food|thing
-das,Wasser,drink|thing
+neuter,Brot,food|thing
+feminine,Liste,thing
+neuter,Wasser,drink|thing
+feminine,Zwiebeln,food|thing
