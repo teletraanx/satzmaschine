@@ -3,12 +3,12 @@
 #include <vector>
 using namespace std;
 
-class Object {
+class Noun {
 public:
-	string the;
-	string object;
+	string gender;
+	string noun;
 	vector<string> tags;
 
 	// constructor
-	Object(string the, string object, vector<string> tags);
+	Noun(string gender, string noun, vector<string> tags);
 };

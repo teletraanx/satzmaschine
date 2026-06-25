@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "Subject.h"
-#include "Object.h"
+#include "Noun.h"
 using namespace std;
 
 class Verb {
@@ -30,5 +30,5 @@ public:
 
     string conjugate(const Subject& subject) const;
     
-    bool acceptsObject(const Object& object) const;
+    bool acceptsNoun(const Noun& noun) const;
 };

@@ -10,3 +10,9 @@ vector<string> splitTags(const string& text) {
 	}
 	return tags;
 }
+
+string capitalizeFirst(const string& text) {
+	string capitalizeFirst = text;
+	capitalizeFirst[0] = toupper(capitalizeFirst[0]);
+	return capitalizeFirst;
+}

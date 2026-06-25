@@ -5,6 +5,7 @@
 #include <random>
 #include "Subject.h"
 #include "Verb.h"
+#include "Noun.h"
 #include "Utility.h"
 using namespace std;
 
@@ -66,25 +67,25 @@ int main()
     // cout << "Successfully loaded list of verbs." << endl;
 
     // Load objects(the,word,tags)
-    vector<Object> objects;
-    ifstream objectsFile("objects.txt");
-    string objectsLine;
+    vector<Noun> nouns;
+    ifstream nounsFile("nouns.txt");
+    string nounsLine;
 
-    while (getline(objectsFile, objectsLine)) {
-        stringstream ss(objectsLine);
-        string the;
+    while (getline(nounsFile, nounsLine)) {
+        stringstream ss(nounsLine);
+        string gender;
         string word;
         string objTagText;
 
-        getline(ss, the, ',');
+        getline(ss, gender, ',');
         getline(ss, word, ',');
         getline(ss, objTagText, ',');
 
-        objects.emplace_back(the, word, splitTags(objTagText));
+        nouns.emplace_back(gender, word, splitTags(objTagText));
     }
-    objectsFile.close();
+    nounsFile.close();
 
-    if (subjects.empty() || verbs.empty() || objects.empty()) {
+    if (subjects.empty() || verbs.empty() || nouns.empty()) {
         cout << "Failed to load words." << endl;
         return 1;
     }
@@ -105,24 +106,24 @@ int main()
         Verb verb = verbs[verbDist(gen)];
 
         // find valid object
-        vector<Object> validObjects;
-        for (const Object& object : objects) {
-            if (verb.acceptsObject(object)) {
-                validObjects.push_back(object);
+        vector<Noun> validNouns;
+        for (const Noun& noun : nouns) {
+            if (verb.acceptsNoun(noun)) {
+                validNouns.push_back(noun);
             }
         }
-        if (!validObjects.empty()) {
-            uniform_int_distribution<> objDist(0, validObjects.size() - 1);
-            Object object = validObjects[objDist(gen)];
+        if (!validNouns.empty()) {
+            uniform_int_distribution<> objDist(0, validNouns.size() - 1);
+            Noun noun = validNouns[objDist(gen)];
 
             cout << "Say the sentence:" << endl;
-            cout << subject.word << " " << verb.conjugate(subject) << " " << object.object << "." << endl;
+            cout << capitalizeFirst(subject.word) << " " << verb.conjugate(subject) << " " << noun.noun << "." << endl;
 
             cout << "Press Enter for another sentence or q to quit: ";
         }
         else {
             cout << "Say the sentence:" << endl;
-            cout << subject.word << " " << verb.conjugate(subject) << "." << endl;
+            cout << capitalizeFirst(subject.word) << " " << verb.conjugate(subject) << "." << endl;
 
             cout << "Press Enter for another sentence or q to quit: ";
         }

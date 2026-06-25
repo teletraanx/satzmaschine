@@ -2,8 +2,8 @@ brauchen,brauche,brauchst,braucht,brauchen,braucht,brauchen,food|drink|thing
 essen,esse,isst,isst,essen,esst,essen,food
 gehen,gehe,gehst,geht,gehen,geht,gehen,place
 haben,habe,hast,hat,haben,habt,haben,drink|food|thing
-hatten gerne,hatte gerne,hatten gerne,hatte gerne,hatten gerne,hatten gerne,hatten gerne,food|drink|thing
+hatten gerne,hatte gerne,hattest gerne,hatte gerne,hatten gerne,hatten gerne,hatten gerne,food|drink|thing
 können,kann,kannst,kann,können,könnt,können,activity
 sehen,sehe,siehst,sieht,sehen,seht,sehen,food|drink|thing|place
-sein,bin,bist,ist,sind,seid,sind,tobe
+sein,bin,bist,ist,sind,seid,sind,linking
 trinken,trinke,trinkst,trinkt,trinken,trinkt,trinken,drink

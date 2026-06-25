@@ -30,15 +30,15 @@ string Verb::conjugate(const Subject& subject) const {
     return infinitive;
 }
 
-bool Verb::acceptsObject(const Object& object) const
+bool Verb::acceptsNoun(const Noun& noun) const
 {
     for (const string& verbTag : objectTags) {
         if (verbTag == "none") {
             return false;
         }
 
-        for (const string& objectTag : object.tags) {
-            if (verbTag == objectTag) {
+        for (const string& nounTag : noun.tags) {
+            if (verbTag == nounTag) {
                 return true;
             }
         }
