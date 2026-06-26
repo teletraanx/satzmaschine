@@ -17,6 +17,13 @@ string capitalizeFirst(const string& text) {
 	return capitalizeFirst;
 }
 
+int coinFlip() {
+	random_device rd; // get randomness from system
+	mt19937 gen(rd()); // random number generator 
+	uniform_int_distribution<> dist(0, 1);
+	return dist(gen);
+}
+
 vector<Pronoun> parsePronouns(string fileName) {
 	vector<Pronoun> words;
 	ifstream file(fileName);
@@ -108,6 +115,25 @@ vector<PersonNoun> parsePersonNouns(string fileName) {
 		getline(ss, personnounTagText, ',');
 
 		words.emplace_back(masculine, feminine, plural, splitTags(personnounTagText));
+	}
+	file.close();
+	return words;
+}
+
+vector<Adjective> parseAdjectives(string fileName) {
+	vector<Adjective> words;
+	ifstream file(fileName);
+	string line;
+
+	while (getline(file, line)) {
+		stringstream ss(line);
+		string singular;
+		string plural;
+
+		getline(ss, singular, ',');
+		getline(ss, plural, ',');
+
+		words.emplace_back(singular, plural);
 	}
 	file.close();
 	return words;

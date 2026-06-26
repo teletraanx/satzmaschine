@@ -36,6 +36,9 @@
     <ClCompile Include="PersonNoun.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Adjective.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pronoun.h">
@@ -56,11 +59,15 @@
     <ClInclude Include="PersonNoun.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Adjective.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="pronouns.txt" />
     <Text Include="verbs.txt" />
     <Text Include="nouns.txt" />
     <Text Include="personnouns.txt" />
+    <Text Include="adjectives.txt" />
   </ItemGroup>
 </Project>

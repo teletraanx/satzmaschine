@@ -4,6 +4,7 @@
 #include "Verb.h"
 #include "PersonNoun.h"
 #include "Utility.h"
+#include "Adjective.h"
 #include <random>
 using namespace std;
 
@@ -17,4 +18,6 @@ Verb getRandomVerb(const vector<Verb>& verbs);
 
 PersonNoun getRandomPersonNoun(const vector<PersonNoun>& personnouns);
 
-void generateSimpleSentence(const vector<Pronoun>& pronouns, const vector<Verb>& verbs, const vector<PersonNoun>& personNouns, const vector<Noun>& nouns);
+Adjective getRandomAdjective(const vector<Adjective>& adjectives);
+
+void generateSimpleSentence(const vector<Pronoun>& pronouns, const vector<Verb>& verbs, const vector<PersonNoun>& personNouns, const vector<Noun>& nouns, const vector<Adjective>& adjectives);

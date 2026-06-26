@@ -128,10 +128,12 @@
     <ClCompile Include="Satzmaschine.cpp" />
     <ClCompile Include="Pronoun.cpp" />
     <ClCompile Include="Sentence.cpp" />
+    <ClCompile Include="Adjective.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="Verb.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Adjective.h" />
     <ClInclude Include="PersonNoun.h" />
     <ClInclude Include="Sentence.h" />
     <ClInclude Include="Noun.h" />
@@ -143,6 +145,7 @@
     <Text Include="nouns.txt" />
     <Text Include="pronouns.txt" />
     <Text Include="personnouns.txt" />
+    <Text Include="adjectives.txt" />
     <Text Include="verbs.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

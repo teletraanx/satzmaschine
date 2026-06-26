@@ -43,6 +43,14 @@ PersonNoun getRandomPersonNoun(const vector<PersonNoun>& personNouns) {
 	return personNouns[dist(gen)];
 }
 
+Adjective getRandomAdjective(const vector<Adjective>& adjectives) {
+	random_device rd; // get randomness from system
+	mt19937 gen(rd()); // random number generator 
+
+	uniform_int_distribution<> dist(0, adjectives.size() - 1);
+	return adjectives[dist(gen)];
+}
+
 // A Simple Sentence can be:
 // 0: Noun + Verb + Noun
 // 1: Noun + Verb + Adverb
@@ -52,22 +60,37 @@ PersonNoun getRandomPersonNoun(const vector<PersonNoun>& personNouns) {
 // 5: Pronoun + Linking Verb + PersonNoun
 // 6: Noun + Linking Verb + Adjective
 
-void generateSimpleSentence(const vector<Pronoun>& pronouns, const vector<Verb>& verbs, const vector<PersonNoun>& personNouns, const vector<Noun>& nouns) {
+void generateSimpleSentence(const vector<Pronoun>& pronouns, const vector<Verb>& verbs, const vector<PersonNoun>& personNouns, const vector<Noun>& nouns, const vector<Adjective>& adjectives) {
 	Pronoun pronoun = getRandomPronoun(pronouns);
 	Verb verb = getRandomVerb(verbs);
 
 	if (verb.hasTag("linking")) {
-		// 5: Pronoun + Linking Verb + PersonNoun
-		PersonNoun personNoun = getRandomPersonNoun(personNouns);
+		switch (coinFlip()) {
+		case 0: // use PersonNoun
+		{
+			// 5: Pronoun + Linking Verb + PersonNoun
+			PersonNoun personNoun = getRandomPersonNoun(personNouns);
 
-		if (pronoun.number == "plural") {
-			cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.plural << "." << endl;
+			if (pronoun.number == "plural") {
+				cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.plural << "." << endl;
+			}
+			else if (pronoun.word == "sie") { // she/her
+				cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.feminine << "." << endl;
+			}
+			else
+				cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.masculine << "." << endl;
+			break;
 		}
-		else if (pronoun.word == "sie") { // she/her
-			cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.feminine << "." << endl;
+		case 1: // use Adjective
+		{
+			// 4: Pronoun + Linking Verb + Adjective
+			Adjective adjective = getRandomAdjective(adjectives);
+			// Pronoun will always use singular adjective at the end 
+			cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << adjective.singular << "." << endl;
+			break;
 		}
-		else
-			cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.masculine << "." << endl;
+		}
+		
 	}
 	else {
 		// 2: Pronoun + Verb + Noun

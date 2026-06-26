@@ -1,8 +1,5 @@
 #include <iostream>
-#include <fstream> // for files
-#include <sstream> // for files
 #include <vector>
-#include <random>
 #include "Pronoun.h"
 #include "Verb.h"
 #include "Noun.h"
@@ -17,8 +14,9 @@ int main()
     vector<Verb> verbs = parseVerbs("verbs.txt");
     vector<Noun> nouns = parseNouns("nouns.txt");
     vector<PersonNoun> personnouns = parsePersonNouns("personnouns.txt");
+    vector<Adjective> adjectives = parseAdjectives("adjectives.txt");
 
-    if (pronouns.empty() || verbs.empty() || nouns.empty() || personnouns.empty()) {
+    if (pronouns.empty() || verbs.empty() || nouns.empty() || personnouns.empty() || adjectives.empty()) {
         cout << "Failed to load words." << endl;
         return 1;
     }
@@ -27,7 +25,7 @@ int main()
     cout << "Press Enter for another sentence or q to quit: " << endl;
     cout << "Say the sentence: " << endl;
     do {
-        generateSimpleSentence(pronouns, verbs, personnouns, nouns);
+        generateSimpleSentence(pronouns, verbs, personnouns, nouns, adjectives);
         getline(cin, answer);
     }
     while (answer != "q");
