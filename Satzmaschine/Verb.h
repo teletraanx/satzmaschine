@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "Subject.h"
+#include "Pronoun.h"
 #include "Noun.h"
 using namespace std;
 
@@ -28,7 +28,7 @@ public:
         vector<string> objectTags
     );
 
-    string conjugate(const Subject& subject) const;
+    string conjugate(const Pronoun& subject) const;
     
     bool acceptsNoun(const Noun& noun) const;
 };

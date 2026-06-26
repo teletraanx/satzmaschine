@@ -3,10 +3,11 @@
 #include <sstream> // for files
 #include <vector>
 #include <random>
-#include "Subject.h"
+#include "Pronoun.h"
 #include "Verb.h"
 #include "Noun.h"
 #include "Utility.h"
+#include "Sentence.h"
 using namespace std;
 
 int main()
@@ -16,12 +17,12 @@ int main()
     //  ich,first,singular
     //  er,third,singular
     //  ...
-    vector<Subject> subjects;
-    ifstream subjectsFile("subjects.txt"); // open file in read mode
-    string subjectLine;
+    vector<Pronoun> pronouns;
+    ifstream pronounsFile("pronouns.txt"); // open file in read mode
+    string pronounLine;
 
-    while (getline(subjectsFile, subjectLine)) { // until EOF
-        stringstream ss(subjectLine); // treat string like an input string
+    while (getline(pronounsFile, pronounLine)) { // until EOF
+        stringstream ss(pronounLine); // treat string like an input string
         string word;
         string person;
         string number;
@@ -30,9 +31,9 @@ int main()
         getline(ss, person, ',');
         getline(ss, number, ',');
 
-        subjects.emplace_back(word, person, number); // construct Subject(word, person, number) and append new element to end of vector
+        pronouns.emplace_back(word, person, number); // construct Subject(word, person, number) and append new element to end of vector
     }
-    subjectsFile.close();
+    pronounsFile.close();
     // cout << "Successfully loaded list of subjects." << endl;
 
     // Load Verbs: vector of Verb(string stem, string infinitive) objects
@@ -85,7 +86,7 @@ int main()
     }
     nounsFile.close();
 
-    if (subjects.empty() || verbs.empty() || nouns.empty()) {
+    if (pronouns.empty() || verbs.empty() || nouns.empty()) {
         cout << "Failed to load words." << endl;
         return 1;
     }
@@ -96,34 +97,22 @@ int main()
         //  Choose random Subject
         //  Choose random Verb
         //  Print Subject and correct verb conjugate
-        random_device rd; // get randomness from system
-        mt19937 gen(rd()); // random number generator 
+        Pronoun pronoun = getRandomPronoun(pronouns);
+        Verb verb = getRandomVerb(verbs);
 
-        uniform_int_distribution<> subjectDist(0, subjects.size() - 1); // ability to give random ints between 0 and size of vector-1 with equal probability
-        uniform_int_distribution<> verbDist(0, verbs.size() - 1);
+        vector<Noun> validNouns = getValidNouns(nouns, verb);
 
-        Subject subject = subjects[subjectDist(gen)]; // generate random number
-        Verb verb = verbs[verbDist(gen)];
-
-        // find valid object
-        vector<Noun> validNouns;
-        for (const Noun& noun : nouns) {
-            if (verb.acceptsNoun(noun)) {
-                validNouns.push_back(noun);
-            }
-        }
         if (!validNouns.empty()) {
-            uniform_int_distribution<> objDist(0, validNouns.size() - 1);
-            Noun noun = validNouns[objDist(gen)];
+            Noun noun = getRandomNoun(validNouns);
 
             cout << "Say the sentence:" << endl;
-            cout << capitalizeFirst(subject.word) << " " << verb.conjugate(subject) << " " << noun.noun << "." << endl;
+            cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << noun.noun << "." << endl;
 
             cout << "Press Enter for another sentence or q to quit: ";
         }
         else {
             cout << "Say the sentence:" << endl;
-            cout << capitalizeFirst(subject.word) << " " << verb.conjugate(subject) << "." << endl;
+            cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << "." << endl;
 
             cout << "Press Enter for another sentence or q to quit: ";
         }

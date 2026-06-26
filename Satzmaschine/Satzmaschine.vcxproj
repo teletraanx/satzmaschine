@@ -125,19 +125,22 @@
   <ItemGroup>
     <ClCompile Include="Noun.cpp" />
     <ClCompile Include="Satzmaschine.cpp" />
-    <ClCompile Include="Subject.cpp" />
+    <ClCompile Include="Pronoun.cpp" />
+    <ClCompile Include="Sentence.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="Verb.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sentence.h" />
     <ClInclude Include="Noun.h" />
-    <ClInclude Include="Subject.h" />
+    <ClInclude Include="Pronoun.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="Verb.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="nouns.txt" />
-    <Text Include="subjects.txt" />
+    <Text Include="pronouns.txt" />
+    <Text Include="personnouns.txt" />
     <Text Include="verbs.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

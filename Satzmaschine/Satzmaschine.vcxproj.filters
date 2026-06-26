@@ -18,7 +18,7 @@
     <ClCompile Include="Satzmaschine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Subject.cpp">
+    <ClCompile Include="Pronoun.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Verb.cpp">
@@ -30,9 +30,12 @@
     <ClCompile Include="Noun.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sentence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Subject.h">
+    <ClInclude Include="Pronoun.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Verb.h">
@@ -44,10 +47,14 @@
     <ClInclude Include="Noun.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Sentence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="subjects.txt" />
+    <Text Include="pronouns.txt" />
     <Text Include="verbs.txt" />
     <Text Include="nouns.txt" />
+    <Text Include="personnouns.txt" />
   </ItemGroup>
 </Project>

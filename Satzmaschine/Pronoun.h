@@ -2,11 +2,11 @@
 #include<iostream>
 using namespace std;
 
-class Subject {
+class Pronoun {
 public:
     string word; // ich
     string person; // first
     string number; // singular
 
-    Subject(string w, string p, string n);
+    Pronoun(string w, string p, string n);
 };

@@ -19,7 +19,7 @@ Verb::Verb(string infinitive,
       objectTags(objectTags)
     {}; // constructor 
 
-string Verb::conjugate(const Subject& subject) const {
+string Verb::conjugate(const Pronoun& subject) const {
     if (subject.person == "first" && subject.number == "singular") return ichForm;
     if (subject.person == "first" && subject.number == "plural") return wirForm;
     if (subject.person == "second" && subject.number == "singular") return duForm;
