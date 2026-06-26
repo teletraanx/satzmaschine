@@ -1,16 +1,5 @@
 #include "Sentence.h"
 
-// pick random Simple Sentence template
-// 0. Pronoun + Verb + Noun : I need water
-//		Noun + Verb + Noun : The dog needs water.
-// 1. Pronoun + Linking Verb + Noun : I am a Doctor
-// 2. Pronoun + Linking Verb + Adjective : I am tired
-//		Noun + Linking Verb + Adjective : The dog is tired
-// 3. Pronoun + Verb + Adverb : I sleep peacefully.
-//		Noun + Verb + Adverb : The dog sleeps peacefully
-// 1b. Noun + Linking Verb + Noun <-- Ignore for now
-
-
 Pronoun getRandomPronoun(const vector<Pronoun>& pronouns) {
 	random_device rd; // get randomness from system
 	mt19937 gen(rd()); // random number generator 
@@ -52,4 +41,44 @@ PersonNoun getRandomPersonNoun(const vector<PersonNoun>& personNouns) {
 
 	uniform_int_distribution<> dist(0, personNouns.size() - 1);
 	return personNouns[dist(gen)];
+}
+
+// A Simple Sentence can be:
+// 0: Noun + Verb + Noun
+// 1: Noun + Verb + Adverb
+// 2: Pronoun + Verb + Noun
+// 3: Pronoun + Verb + Adverb
+// 4: Pronoun + Linking Verb + Adjective
+// 5: Pronoun + Linking Verb + PersonNoun
+// 6: Noun + Linking Verb + Adjective
+
+void generateSimpleSentence(const vector<Pronoun>& pronouns, const vector<Verb>& verbs, const vector<PersonNoun>& personNouns, const vector<Noun>& nouns) {
+	Pronoun pronoun = getRandomPronoun(pronouns);
+	Verb verb = getRandomVerb(verbs);
+
+	if (verb.hasTag("linking")) {
+		// 5: Pronoun + Linking Verb + PersonNoun
+		PersonNoun personNoun = getRandomPersonNoun(personNouns);
+
+		if (pronoun.number == "plural") {
+			cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.plural << "." << endl;
+		}
+		else if (pronoun.word == "sie") { // she/her
+			cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.feminine << "." << endl;
+		}
+		else
+			cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.masculine << "." << endl;
+	}
+	else {
+		// 2: Pronoun + Verb + Noun
+		vector<Noun> validNouns = getValidNouns(nouns, verb);
+		if (validNouns.empty()) {
+			cout << "No valid nouns found for this verb: " << verb.conjugate(pronoun) << endl;
+		}
+		else {
+			Noun noun = getRandomNoun(validNouns);
+
+			cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << noun.noun << "." << endl;
+		}
+	}
 }
