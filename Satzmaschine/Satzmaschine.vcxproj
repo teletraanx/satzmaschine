@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Noun.cpp" />
+    <ClCompile Include="PersonNoun.cpp" />
     <ClCompile Include="Satzmaschine.cpp" />
     <ClCompile Include="Pronoun.cpp" />
     <ClCompile Include="Sentence.cpp" />
@@ -131,6 +132,7 @@
     <ClCompile Include="Verb.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PersonNoun.h" />
     <ClInclude Include="Sentence.h" />
     <ClInclude Include="Noun.h" />
     <ClInclude Include="Pronoun.h" />

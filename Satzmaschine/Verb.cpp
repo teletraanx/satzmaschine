@@ -46,3 +46,10 @@ bool Verb::acceptsNoun(const Noun& noun) const
 
     return false;
 }
+
+bool Verb::hasTag(const string& tag) const {
+    for (const string& verbTag : objectTags) {
+        if (verbTag == tag) { return true;  }
+    }
+    return false;
+}

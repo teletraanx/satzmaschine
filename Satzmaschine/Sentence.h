@@ -2,13 +2,16 @@
 #include "Pronoun.h"
 #include "Noun.h"
 #include "Verb.h"
+#include "PersonNoun.h"
 #include <random>
 using namespace std;
 
-Pronoun getRandomPronoun(vector<Pronoun> pronouns);
+Pronoun getRandomPronoun(const vector<Pronoun>& pronouns);
 
-vector<Noun> getValidNouns(vector<Noun> nouns, Verb verb);
+vector<Noun> getValidNouns(const vector<Noun>& nouns, Verb& verb);
 
-Noun getRandomNoun(vector<Noun> nouns);
+Noun getRandomNoun(const vector<Noun>& nouns);
 
-Verb getRandomVerb(vector<Verb> verbs);
+Verb getRandomVerb(const vector<Verb>& verbs);
+
+PersonNoun getRandomPersonNoun(const vector<PersonNoun>& personnouns);

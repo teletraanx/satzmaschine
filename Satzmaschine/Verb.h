@@ -31,4 +31,6 @@ public:
     string conjugate(const Pronoun& subject) const;
     
     bool acceptsNoun(const Noun& noun) const;
+
+    bool hasTag(const string& tag) const;
 };

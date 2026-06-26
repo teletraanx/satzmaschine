@@ -8,6 +8,7 @@
 #include "Noun.h"
 #include "Utility.h"
 #include "Sentence.h"
+#include "PersonNoun.h"
 using namespace std;
 
 int main()
@@ -86,7 +87,26 @@ int main()
     }
     nounsFile.close();
 
-    if (pronouns.empty() || verbs.empty() || nouns.empty()) {
+    // Load PersonNouns
+    vector<PersonNoun> personnouns;
+    ifstream personnounsFile("personnouns.txt");
+    string personnounsLine;
+
+    while (getline(personnounsFile, personnounsLine)) {
+        stringstream ss(personnounsLine);
+        string masculine;
+        string feminine;
+        string personnounTagText;
+
+        getline(ss, masculine, ',');
+        getline(ss, feminine, ',');
+        getline(ss, personnounTagText, ',');
+
+        personnouns.emplace_back(masculine, feminine, splitTags(personnounTagText));
+    }
+    personnounsFile.close();
+
+    if (pronouns.empty() || verbs.empty() || nouns.empty() || personnouns.empty()) {
         cout << "Failed to load words." << endl;
         return 1;
     }
@@ -100,23 +120,28 @@ int main()
         Pronoun pronoun = getRandomPronoun(pronouns);
         Verb verb = getRandomVerb(verbs);
 
-        vector<Noun> validNouns = getValidNouns(nouns, verb);
-
-        if (!validNouns.empty()) {
-            Noun noun = getRandomNoun(validNouns);
-
+           // if verb is linking, use adjectives or PersonNouns
+        if (verb.hasTag("linking")) {
+            //
+            PersonNoun personNoun = getRandomPersonNoun(personnouns);
             cout << "Say the sentence:" << endl;
-            cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << noun.noun << "." << endl;
+            cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.masculine << "." << endl;
 
-            cout << "Press Enter for another sentence or q to quit: ";
         }
         else {
-            cout << "Say the sentence:" << endl;
-            cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << "." << endl;
+            vector<Noun> validNouns = getValidNouns(nouns, verb);
+            if (validNouns.empty()) {
+                cout << "No valid nouns found for this verb: " << verb.conjugate(pronoun) << endl;
+            }
+            else {
+                Noun noun = getRandomNoun(validNouns);
 
-            cout << "Press Enter for another sentence or q to quit: ";
+                cout << "Say the sentence:" << endl;
+                cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << noun.noun << "." << endl;
+
+            }
         }
-
+        cout << "Press Enter for another sentence or q to quit: ";
         getline(cin, answer);
     }
     while (answer != "q");

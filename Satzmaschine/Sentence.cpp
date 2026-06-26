@@ -11,17 +11,16 @@
 // 1b. Noun + Linking Verb + Noun <-- Ignore for now
 
 
-Pronoun getRandomPronoun(vector<Pronoun> pronouns) {
+Pronoun getRandomPronoun(const vector<Pronoun>& pronouns) {
 	random_device rd; // get randomness from system
 	mt19937 gen(rd()); // random number generator 
 
-	uniform_int_distribution<> pronounDist(0, pronouns.size() - 1);
-	Pronoun pronoun = pronouns[pronounDist(gen)];
-	return pronoun;
+	uniform_int_distribution<> dist(0, pronouns.size() - 1);
+	return pronouns[dist(gen)];
 }
 
 // Valid noun depends on verb's tags
-vector<Noun> getValidNouns(vector<Noun> nouns, Verb verb) {
+vector<Noun> getValidNouns(const vector<Noun>& nouns, Verb& verb) {
 	vector<Noun> validNouns;
 	for (const Noun& noun : nouns) {
 		if (verb.acceptsNoun(noun)) {
@@ -31,20 +30,26 @@ vector<Noun> getValidNouns(vector<Noun> nouns, Verb verb) {
 	return validNouns;
 }
 
-Noun getRandomNoun(vector<Noun> nouns) {
+Noun getRandomNoun(const vector<Noun>& nouns) {
 	random_device rd; // get randomness from system
 	mt19937 gen(rd()); // random number generator 
 
-	uniform_int_distribution<> nounDist(0, nouns.size() - 1);
-	Noun noun = nouns[nounDist(gen)];
-	return noun;
+	uniform_int_distribution<> dist(0, nouns.size() - 1);
+	return nouns[dist(gen)];
 }
 
-Verb getRandomVerb(vector<Verb> verbs) {
+Verb getRandomVerb(const vector<Verb>& verbs) {
 	random_device rd; // get randomness from system
 	mt19937 gen(rd()); // random number generator 
 
-	uniform_int_distribution<> verbDist(0, verbs.size() - 1);
-	Verb verb = verbs[verbDist(gen)];
-	return verb;
+	uniform_int_distribution<> dist(0, verbs.size() - 1);
+	return verbs[dist(gen)];
+}
+
+PersonNoun getRandomPersonNoun(const vector<PersonNoun>& personNouns) {
+	random_device rd; // get randomness from system
+	mt19937 gen(rd()); // random number generator 
+
+	uniform_int_distribution<> dist(0, personNouns.size() - 1);
+	return personNouns[dist(gen)];
 }
