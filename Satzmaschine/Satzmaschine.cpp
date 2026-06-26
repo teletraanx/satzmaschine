@@ -96,13 +96,15 @@ int main()
         stringstream ss(personnounsLine);
         string masculine;
         string feminine;
+        string plural;
         string personnounTagText;
 
         getline(ss, masculine, ',');
         getline(ss, feminine, ',');
+        getline(ss, plural, ',');
         getline(ss, personnounTagText, ',');
 
-        personnouns.emplace_back(masculine, feminine, splitTags(personnounTagText));
+        personnouns.emplace_back(masculine, feminine, plural, splitTags(personnounTagText));
     }
     personnounsFile.close();
 
@@ -125,7 +127,15 @@ int main()
             //
             PersonNoun personNoun = getRandomPersonNoun(personnouns);
             cout << "Say the sentence:" << endl;
-            cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.masculine << "." << endl;
+
+            if (pronoun.number == "plural") {
+                cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.plural << "." << endl;
+            }
+            else if (pronoun.word == "sie") { // she/her
+                cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.feminine << "." << endl;
+            }
+            else
+                cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.masculine << "." << endl;
 
         }
         else {

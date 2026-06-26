@@ -1,3 +1,3 @@
 #include "PersonNoun.h"
 
-PersonNoun::PersonNoun(string m, string f, vector<string> t) : masculine(m), feminine(f), tags(t) {}
+PersonNoun::PersonNoun(string m, string f, string p, vector<string> t) : masculine(m), feminine(f), plural(p), tags(t) {}

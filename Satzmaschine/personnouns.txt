@@ -1,1 +1,1 @@
-Arzt,Arztin,linking
+Arzt,Arztin,Arzte,linking
