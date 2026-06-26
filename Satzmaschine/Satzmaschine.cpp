@@ -13,100 +13,10 @@ using namespace std;
 
 int main()
 {
-    // Load Subjects: vector of Subject(string text, string person, string number) objects
-    //  subjects.txt: 
-    //  ich,first,singular
-    //  er,third,singular
-    //  ...
-    vector<Pronoun> pronouns;
-    ifstream pronounsFile("pronouns.txt"); // open file in read mode
-    string pronounLine;
-
-    while (getline(pronounsFile, pronounLine)) { // until EOF
-        stringstream ss(pronounLine); // treat string like an input string
-        string word;
-        string person;
-        string number;
-
-        getline(ss, word, ','); // from string stream parse field 1, store in word, deliminated by ','
-        getline(ss, person, ',');
-        getline(ss, number, ',');
-
-        pronouns.emplace_back(word, person, number); // construct Subject(word, person, number) and append new element to end of vector
-    }
-    pronounsFile.close();
-    // cout << "Successfully loaded list of subjects." << endl;
-
-    // Load Verbs: vector of Verb(string stem, string infinitive) objects
-    //  verbs.txt: infinitive,ichForm,duForm,thirdSingularForm,wirForm,ihrForm,sieForm
-    vector<Verb> verbs;
-    ifstream verbsFile("verbs.txt");
-    string verbLine;
-
-    while (getline(verbsFile, verbLine)) {
-        stringstream ss(verbLine);
-        string infinitive;
-        string ichForm;
-        string duForm;
-        string thirdSingularForm;
-        string wirForm;
-        string ihrForm;
-        string sieForm;
-        string tagText;
-
-        getline(ss, infinitive, ',');
-        getline(ss, ichForm, ',');
-        getline(ss, duForm, ',');
-        getline(ss, thirdSingularForm, ',');
-        getline(ss, wirForm, ',');
-        getline(ss, ihrForm, ',');
-        getline(ss, sieForm, ',');
-        getline(ss, tagText, ',');
-
-        verbs.emplace_back(infinitive, ichForm, duForm, thirdSingularForm, wirForm, ihrForm, sieForm, splitTags(tagText));
-    }
-    verbsFile.close();
-    // cout << "Successfully loaded list of verbs." << endl;
-
-    // Load objects(the,word,tags)
-    vector<Noun> nouns;
-    ifstream nounsFile("nouns.txt");
-    string nounsLine;
-
-    while (getline(nounsFile, nounsLine)) {
-        stringstream ss(nounsLine);
-        string gender;
-        string word;
-        string objTagText;
-
-        getline(ss, gender, ',');
-        getline(ss, word, ',');
-        getline(ss, objTagText, ',');
-
-        nouns.emplace_back(gender, word, splitTags(objTagText));
-    }
-    nounsFile.close();
-
-    // Load PersonNouns
-    vector<PersonNoun> personnouns;
-    ifstream personnounsFile("personnouns.txt");
-    string personnounsLine;
-
-    while (getline(personnounsFile, personnounsLine)) {
-        stringstream ss(personnounsLine);
-        string masculine;
-        string feminine;
-        string plural;
-        string personnounTagText;
-
-        getline(ss, masculine, ',');
-        getline(ss, feminine, ',');
-        getline(ss, plural, ',');
-        getline(ss, personnounTagText, ',');
-
-        personnouns.emplace_back(masculine, feminine, plural, splitTags(personnounTagText));
-    }
-    personnounsFile.close();
+    vector<Pronoun> pronouns = parsePronouns("pronouns.txt");
+    vector<Verb> verbs = parseVerbs("verbs.txt");
+    vector<Noun> nouns = parseNouns("nouns.txt");
+    vector<PersonNoun> personnouns = parsePersonNouns("personnouns.txt");
 
     if (pronouns.empty() || verbs.empty() || nouns.empty() || personnouns.empty()) {
         cout << "Failed to load words." << endl;
