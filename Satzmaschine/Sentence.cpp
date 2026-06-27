@@ -51,6 +51,14 @@ Adjective getRandomAdjective(const vector<Adjective>& adjectives) {
 	return adjectives[dist(gen)];
 }
 
+Adverb getRandomAdverb(const vector<Adverb>& adverbs) {
+	random_device rd; // get randomness from system
+	mt19937 gen(rd()); // random number generator 
+
+	uniform_int_distribution<> dist(0, adverbs.size() - 1);
+	return adverbs[dist(gen)];
+}
+
 // A Simple Sentence can be:
 // 0: Noun + Verb + Noun
 // 1: Noun + Verb + Adverb
@@ -60,7 +68,7 @@ Adjective getRandomAdjective(const vector<Adjective>& adjectives) {
 // 5: Pronoun + Linking Verb + PersonNoun
 // 6: Noun + Linking Verb + Adjective
 
-void generateSimpleSentence(const vector<Pronoun>& pronouns, const vector<Verb>& verbs, const vector<PersonNoun>& personNouns, const vector<Noun>& nouns, const vector<Adjective>& adjectives) {
+void generateSimpleSentence(const vector<Pronoun>& pronouns, const vector<Verb>& verbs, const vector<PersonNoun>& personNouns, const vector<Noun>& nouns, const vector<Adjective>& adjectives, const vector<Adverb>& adverbs) {
 	Pronoun pronoun = getRandomPronoun(pronouns);
 	Verb verb = getRandomVerb(verbs);
 
@@ -93,15 +101,45 @@ void generateSimpleSentence(const vector<Pronoun>& pronouns, const vector<Verb>&
 		
 	}
 	else {
-		// 2: Pronoun + Verb + Noun
-		vector<Noun> validNouns = getValidNouns(nouns, verb);
-		if (validNouns.empty()) {
-			cout << "No valid nouns found for this verb: " << verb.conjugate(pronoun) << endl;
+		if (verb.hasTag("adverb"))
+		{
+			switch (coinFlip()) {
+			case 0:// 2: Pronoun + Verb + Noun
+			{
+				vector<Noun> validNouns = getValidNouns(nouns, verb);
+				if (validNouns.empty()) {
+					Adverb adverb = getRandomAdverb(adverbs);
+					cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << adverb.adverb << "." << endl;
+					// cout << "No valid nouns found for this verb: " << verb.conjugate(pronoun) << endl;
+				}
+				else {
+					Noun noun = getRandomNoun(validNouns);
+
+					cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << noun.noun << "." << endl;
+				}
+				break;
+			}
+			case 1:
+			{
+				// 3: Pronoun + Verb + Adverb
+				Adverb adverb = getRandomAdverb(adverbs);
+				cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << adverb.adverb << "." << endl;
+				break;
+			}
+			}
 		}
 		else {
-			Noun noun = getRandomNoun(validNouns);
+			vector<Noun> validNouns = getValidNouns(nouns, verb);
+			if (validNouns.empty()) {
+				cout << "No valid nouns found for this verb: " << verb.conjugate(pronoun) << endl;
+			}
+			else {
+				Noun noun = getRandomNoun(validNouns);
 
-			cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << noun.noun << "." << endl;
+				cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << noun.noun << "." << endl;
+			}
 		}
+
 	}
+	return;
 }

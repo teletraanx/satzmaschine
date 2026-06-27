@@ -9,6 +9,7 @@
 #include "Noun.h"
 #include "PersonNoun.h"
 #include "Adjective.h"
+#include "Adverb.h"
 #include <random>
 using namespace std;
 
@@ -27,3 +28,5 @@ vector<Noun> parseNouns(string fileName);
 vector<PersonNoun> parsePersonNouns(string fileName);
 
 vector<Adjective> parseAdjectives(string fileName);
+
+vector<Adverb> parseAdverbs(string fileName);

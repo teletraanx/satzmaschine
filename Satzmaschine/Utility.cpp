@@ -138,3 +138,20 @@ vector<Adjective> parseAdjectives(string fileName) {
 	file.close();
 	return words;
 }
+
+vector<Adverb> parseAdverbs(string fileName) {
+	vector<Adverb> words;
+	ifstream file(fileName);
+	string line;
+
+	while (getline(file, line)) {
+		stringstream ss(line);
+		string adverb;
+
+		getline(ss, adverb, ',');
+
+		words.emplace_back(adverb);
+	}
+	file.close();
+	return words;
+}
