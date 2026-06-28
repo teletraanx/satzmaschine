@@ -7,7 +7,7 @@ using namespace std;
 
 class Verb {
 // verbs.txt: infinitive,ichForm,duForm,thirdSingularForm,wirForm,ihrForm,sieForm
-private:
+public:
     string infinitive;
     string ichForm;
     string duForm;
@@ -16,7 +16,6 @@ private:
     string ihrForm;
     string sieForm;
     vector<string> objectTags;
-public:
     // constructor
     Verb(string infinitive, 
         string ichForm,

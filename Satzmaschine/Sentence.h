@@ -23,4 +23,13 @@ Adjective getRandomAdjective(const vector<Adjective>& adjectives);
 
 Adverb getRandomAdverb(const vector<Adverb>& adverbs);
 
-void generateSimpleSentence(const vector<Pronoun>& pronouns, const vector<Verb>& verbs, const vector<PersonNoun>& personNouns, const vector<Noun>& nouns, const vector<Adjective>& adjectives, const vector<Adverb>& adverbs);
+void genPronounLVerbPNoun(const Pronoun& pronoun, const Verb& verb, const PersonNoun& personNoun);
+void genPronounLVerbAdjective(const Pronoun& pronoun, const Verb& verb, const Adjective& adjective);
+void genNounLVerbAdjective(const Noun& Noun, const Verb& verb, const Adjective& adjective);
+void genPronounVerbNoun(const Pronoun& pronoun, const Verb& verb, const Noun& noun);
+void genNounVerbNoun(const Noun& startNoun, const Verb& verb, const Noun& noun);
+void genPronounVerbAdverb(const Pronoun& pronoun, const Verb& verb, const Adverb& adverb);
+void genNounVerbAdverb(const Noun& noun, const Verb& verb, const Adverb& adverb);
+
+void generatePronounSimpleSentence(const vector<Pronoun>& pronouns, const vector<Verb>& verbs, const vector<PersonNoun>& personNouns, const vector<Noun>& nouns, const vector<Adjective>& adjectives, const vector<Adverb>& adverbs);
+void generateNounSimpleSentence(const vector<Pronoun>& pronouns, const vector<Verb>& verbs, const vector<PersonNoun>& personNouns, const vector<Noun>& nouns, const vector<Adjective>& adjectives, const vector<Adverb>& adverbs);

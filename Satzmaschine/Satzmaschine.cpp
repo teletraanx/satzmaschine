@@ -26,7 +26,8 @@ int main()
     cout << "Press Enter for another sentence or q to quit: " << endl;
     cout << "Say the sentence: " << endl;
     do {
-        generateSimpleSentence(pronouns, verbs, personnouns, nouns, adjectives, adverbs);
+        // generatePronounSimpleSentence(pronouns, verbs, personnouns, nouns, adjectives, adverbs);
+        generateNounSimpleSentence(pronouns, verbs, personnouns, nouns, adjectives, adverbs);
         getline(cin, answer);
     }
     while (answer != "q");
