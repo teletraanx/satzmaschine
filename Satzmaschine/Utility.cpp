@@ -24,6 +24,13 @@ int coinFlip() {
 	return dist(gen);
 }
 
+int threeSideDice() {
+	random_device rd; // get randomness from system
+	mt19937 gen(rd()); // random number generator 
+	uniform_int_distribution<> dist(0, 2);
+	return dist(gen);
+}
+
 vector<Pronoun> parsePronouns(string fileName) {
 	vector<Pronoun> words;
 	ifstream file(fileName);
@@ -125,15 +132,19 @@ vector<Adjective> parseAdjectives(string fileName) {
 	ifstream file(fileName);
 	string line;
 
+	getline(file, line);
+
 	while (getline(file, line)) {
 		stringstream ss(line);
 		string singular;
 		string plural;
+		string tagText;
 
 		getline(ss, singular, ',');
 		getline(ss, plural, ',');
+		getline(ss, tagText, ',');
 
-		words.emplace_back(singular, plural);
+		words.emplace_back(singular, plural, splitTags(tagText));
 	}
 	file.close();
 	return words;
@@ -151,6 +162,60 @@ vector<Adverb> parseAdverbs(string fileName) {
 		getline(ss, adverb, ',');
 
 		words.emplace_back(adverb);
+	}
+	file.close();
+	return words;
+}
+
+vector<StartNoun> parseStartNouns(string fileName) {
+	vector<StartNoun> words;
+	ifstream file(fileName);
+	string line;
+
+	getline(file, line);
+
+	while (getline(file, line)) {
+		stringstream ss(line);
+		string masc;
+		string fem;
+		string plural;
+		string otherGender;
+		string firstTagText;
+		string secondTagText;
+
+		getline(ss, masc, ',');
+		getline(ss, fem, ',');
+		getline(ss, plural, ',');
+		getline(ss, otherGender, ',');
+		getline(ss, firstTagText, ',');
+		getline(ss, secondTagText, ',');
+
+		words.emplace_back(masc, fem, plural, otherGender, splitTags(firstTagText), splitTags(secondTagText));
+	}
+	file.close();
+	return words;
+}
+
+vector<NounStartingVerb> parseNounStartingVerbs(string fileName) {
+	vector<NounStartingVerb> words;
+	ifstream file(fileName);
+	string line;
+
+	getline(file, line);
+
+	while (getline(file, line)) {
+		stringstream ss(line);
+		string singular;
+		string plural;
+		string firstTagText;
+		string secondTagText;
+
+		getline(ss, singular, ',');
+		getline(ss, plural, ',');
+		getline(ss, firstTagText, ',');
+		getline(ss, secondTagText, ',');
+
+		words.emplace_back(singular, plural, splitTags(firstTagText), splitTags(secondTagText));
 	}
 	file.close();
 	return words;

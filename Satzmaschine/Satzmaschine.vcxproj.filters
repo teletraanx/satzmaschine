@@ -42,6 +42,12 @@
     <ClCompile Include="Adverb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NounStartingVerb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StartNoun.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pronoun.h">
@@ -68,6 +74,12 @@
     <ClInclude Include="Adverb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="NounStartingVerb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StartNoun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="pronouns.txt" />
@@ -76,5 +88,7 @@
     <Text Include="personnouns.txt" />
     <Text Include="adjectives.txt" />
     <Text Include="adverbs.txt" />
+    <Text Include="startnouns.txt" />
+    <Text Include="nounstartingverbs.txt" />
   </ItemGroup>
 </Project>

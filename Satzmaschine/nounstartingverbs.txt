@@ -1,0 +1,4 @@
+thirdSingular,thirdPlural,firstlink,secondlink
+ist,sind,linking,null
+braucht,brauchen,person,food
+isst,essen,person,food

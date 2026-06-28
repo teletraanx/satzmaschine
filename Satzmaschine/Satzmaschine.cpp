@@ -16,6 +16,8 @@ int main()
     vector<PersonNoun> personnouns = parsePersonNouns("personnouns.txt");
     vector<Adjective> adjectives = parseAdjectives("adjectives.txt");
     vector<Adverb> adverbs = parseAdverbs("adverbs.txt");
+    vector<StartNoun> startNouns = parseStartNouns("startnouns.txt");
+    vector<NounStartingVerb> nounStartingVerbs = parseNounStartingVerbs("nounstartingverbs.txt");
 
     if (pronouns.empty() || verbs.empty() || nouns.empty() || personnouns.empty() || adjectives.empty() || adverbs.empty()) {
         cout << "Failed to load words." << endl;
@@ -27,7 +29,7 @@ int main()
     cout << "Say the sentence: " << endl;
     do {
         // generatePronounSimpleSentence(pronouns, verbs, personnouns, nouns, adjectives, adverbs);
-        generateNounSimpleSentence(pronouns, verbs, personnouns, nouns, adjectives, adverbs);
+        generateNounSimpleSentence(startNouns, nounStartingVerbs, adjectives, adverbs);
         getline(cin, answer);
     }
     while (answer != "q");

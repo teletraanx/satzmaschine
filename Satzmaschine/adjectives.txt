@@ -1,1 +1,2 @@
-mude,muden
+singular,plural,tags
+mude,muden,person

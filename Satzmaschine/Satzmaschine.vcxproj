@@ -130,16 +130,20 @@
     <ClCompile Include="Pronoun.cpp" />
     <ClCompile Include="Sentence.cpp" />
     <ClCompile Include="Adjective.cpp" />
+    <ClCompile Include="NounStartingVerb.cpp" />
+    <ClCompile Include="StartNoun.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="Verb.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Adjective.h" />
     <ClInclude Include="Adverb.h" />
+    <ClInclude Include="NounStartingVerb.h" />
     <ClInclude Include="PersonNoun.h" />
     <ClInclude Include="Sentence.h" />
     <ClInclude Include="Noun.h" />
     <ClInclude Include="Pronoun.h" />
+    <ClInclude Include="StartNoun.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="Verb.h" />
   </ItemGroup>
@@ -149,6 +153,8 @@
     <Text Include="personnouns.txt" />
     <Text Include="adjectives.txt" />
     <Text Include="adverbs.txt" />
+    <Text Include="startnouns.txt" />
+    <Text Include="nounstartingverbs.txt" />
     <Text Include="verbs.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

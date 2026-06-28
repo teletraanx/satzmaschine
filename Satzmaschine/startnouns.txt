@@ -1,0 +1,4 @@
+Masc,Femin,Plural,othergender,firstlink,secondlink
+Hunde,Hundin,Hunde,null,person,person
+Arzt,Arztin,Arzte,null,person,person
+Wasser,Wasser,Wasser,neuter,null,food
