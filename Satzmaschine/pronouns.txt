@@ -1,3 +1,4 @@
+word,perspective,number
 ich,first,singular
 wir,first,plural
 du,second,singular

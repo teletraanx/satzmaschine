@@ -1,3 +1,4 @@
+gender,word,tags
 neuter,Brot,food|thing
 feminine,Liste,thing
 neuter,Wasser,drink|thing

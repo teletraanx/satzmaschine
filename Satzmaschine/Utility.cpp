@@ -36,6 +36,8 @@ vector<Pronoun> parsePronouns(string fileName) {
 	ifstream file(fileName);
 	string line;
 
+	getline(file, line); //skip header line
+
 	while (getline(file, line)) {
 		stringstream ss(line);
 		string word;
@@ -56,6 +58,8 @@ vector<Verb> parseVerbs(string fileName) {
 	vector<Verb> words;
 	ifstream file(fileName);
 	string line;
+
+	getline(file, line); //skip header
 
 	while (getline(file, line)) {
 		stringstream ss(line);
@@ -88,6 +92,8 @@ vector<Noun> parseNouns(string fileName) {
 	ifstream file(fileName);
 	string line;
 
+	getline(file, line); 
+
 	while (getline(file, line)) {
 		stringstream ss(line);
 		string gender;
@@ -108,6 +114,8 @@ vector<PersonNoun> parsePersonNouns(string fileName) {
 	vector<PersonNoun> words;
 	ifstream file(fileName);
 	string line;
+
+	getline(file, line);
 
 	while (getline(file, line)) {
 		stringstream ss(line);
@@ -154,6 +162,8 @@ vector<Adverb> parseAdverbs(string fileName) {
 	vector<Adverb> words;
 	ifstream file(fileName);
 	string line;
+
+	getline(file, line);
 
 	while (getline(file, line)) {
 		stringstream ss(line);

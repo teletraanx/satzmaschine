@@ -10,4 +10,6 @@ public:
 	vector<string> tags;
 
 	Adjective(string singular, string plural, vector<string> tags);
+
+	bool hasTag(const string& tag) const;
 };

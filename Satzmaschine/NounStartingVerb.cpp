@@ -11,6 +11,13 @@ bool NounStartingVerb::hasFirstTag(const string& tag) const {
 	return false;
 }
 
+bool NounStartingVerb::hasSecondTag(const string& tag) const {
+    for (const string& verbTag : secondTags) {
+        if (verbTag == tag) { return true; }
+    }
+    return false;
+}
+
 bool NounStartingVerb::acceptsStartNoun(const StartNoun& noun) const
 {
     for (const string& verbTag : firstTags) {

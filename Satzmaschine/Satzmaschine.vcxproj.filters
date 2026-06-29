@@ -90,5 +90,12 @@
     <Text Include="adverbs.txt" />
     <Text Include="startnouns.txt" />
     <Text Include="nounstartingverbs.txt" />
+    <Text Include="lvl1verbs.txt" />
+    <Text Include="lvl1nouns.txt" />
+    <Text Include="lvl1personnouns.txt" />
+    <Text Include="lvl1startnouns.txt" />
+    <Text Include="lvl1adjectives.txt" />
+    <Text Include="lvl1adverbs.txt" />
+    <Text Include="lvl1nounstartingverbs.txt" />
   </ItemGroup>
 </Project>

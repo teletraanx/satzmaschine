@@ -11,13 +11,13 @@ using namespace std;
 int main()
 {
     vector<Pronoun> pronouns = parsePronouns("pronouns.txt");
-    vector<Verb> verbs = parseVerbs("verbs.txt");
-    vector<Noun> nouns = parseNouns("nouns.txt");
-    vector<PersonNoun> personnouns = parsePersonNouns("personnouns.txt");
-    vector<Adjective> adjectives = parseAdjectives("adjectives.txt");
-    vector<Adverb> adverbs = parseAdverbs("adverbs.txt");
-    vector<StartNoun> startNouns = parseStartNouns("startnouns.txt");
-    vector<NounStartingVerb> nounStartingVerbs = parseNounStartingVerbs("nounstartingverbs.txt");
+    vector<Verb> verbs = parseVerbs("lvl1verbs.txt");
+    vector<Noun> nouns = parseNouns("lvl1nouns.txt");
+    vector<PersonNoun> personnouns = parsePersonNouns("lvl1personnouns.txt");
+    vector<Adjective> adjectives = parseAdjectives("lvl1adjectives.txt");
+    vector<Adverb> adverbs = parseAdverbs("lvl1adverbs.txt");
+    vector<StartNoun> startNouns = parseStartNouns("lvl1startnouns.txt");
+    vector<NounStartingVerb> nounStartingVerbs = parseNounStartingVerbs("lvl1nounstartingverbs.txt");
 
     if (pronouns.empty() || verbs.empty() || nouns.empty() || personnouns.empty() || adjectives.empty() || adverbs.empty()) {
         cout << "Failed to load words." << endl;
@@ -28,8 +28,14 @@ int main()
     cout << "Press Enter for another sentence or q to quit: " << endl;
     cout << "Say the sentence: " << endl;
     do {
-        // generatePronounSimpleSentence(pronouns, verbs, personnouns, nouns, adjectives, adverbs);
-        generateNounSimpleSentence(startNouns, nounStartingVerbs, adjectives, adverbs);
+        switch (coinFlip()) {
+        case 0:
+            generatePronounSimpleSentence(pronouns, verbs, personnouns, nouns, adjectives, adverbs);
+            break;
+        case 1:
+            generateNounSimpleSentence(startNouns, nounStartingVerbs, adjectives, adverbs);
+            break;
+        }
         getline(cin, answer);
     }
     while (answer != "q");
