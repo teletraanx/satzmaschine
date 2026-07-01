@@ -1,15 +1,20 @@
 #include "Sentence.h"
 
-Pronoun getRandomPronoun(const vector<Pronoun>& pronouns) {
-	random_device rd; // get randomness from system
-	mt19937 gen(rd()); // random number generator 
+template <typename T> 
+const T& getRandomItem(const vector<T>& items) {
+	if (items.empty()) {
+		throw runtime_error("ERROR: getRandomItem called with empty vector.");
+	}
 
-	uniform_int_distribution<> dist(0, pronouns.size() - 1);
-	return pronouns[dist(gen)];
+	static random_device rd;
+	static mt19937 gen(rd());
+
+	uniform_int_distribution<> dist(0, static_cast<int>(items.size()) - 1);
+	return items[dist(gen)];
 }
 
 // Valid noun depends on verb's tags
-vector<Noun> getValidNouns(const vector<Noun>& nouns, Verb& verb) {
+vector<Noun> getValidNouns(const vector<Noun>& nouns, const Verb& verb) {
 	vector<Noun> validNouns;
 	for (const Noun& noun : nouns) {
 		if (verb.acceptsNoun(noun)) {
@@ -19,7 +24,7 @@ vector<Noun> getValidNouns(const vector<Noun>& nouns, Verb& verb) {
 	return validNouns;
 }
 
-vector<StartNoun> getValidStartNouns(const vector<StartNoun>& nouns, NounStartingVerb& verb) {
+vector<StartNoun> getValidStartNouns(const vector<StartNoun>& nouns, const NounStartingVerb& verb) {
 	vector<StartNoun> validStartNouns;
 	for (const StartNoun& noun : nouns) {
 		if (verb.acceptsStartNoun(noun)) {
@@ -29,7 +34,7 @@ vector<StartNoun> getValidStartNouns(const vector<StartNoun>& nouns, NounStartin
 	return validStartNouns;
 }
 
-vector<StartNoun> getValidSecondStartNouns(const vector<StartNoun>& nouns, NounStartingVerb& verb) {
+vector<StartNoun> getValidSecondStartNouns(const vector<StartNoun>& nouns, const NounStartingVerb& verb) {
 	vector<StartNoun> validStartNouns;
 	for (const StartNoun& noun : nouns) {
 		if (verb.acceptsSecondStartNoun(noun)) {
@@ -40,7 +45,7 @@ vector<StartNoun> getValidSecondStartNouns(const vector<StartNoun>& nouns, NounS
 }
 
 // Valid adjective depends on startNoun's second tags
-vector<Adjective> getValidAdjectives(const vector<Adjective>& adjectives, StartNoun& noun) {
+vector<Adjective> getValidAdjectives(const vector<Adjective>& adjectives, const StartNoun& noun) {
 	vector<Adjective> validAdjectives;
 	for (const Adjective& adjective : adjectives) {
 		if (noun.acceptsAdjective(adjective)) {
@@ -48,62 +53,6 @@ vector<Adjective> getValidAdjectives(const vector<Adjective>& adjectives, StartN
 		}
 	}
 	return validAdjectives;
-}
-
-Noun getRandomNoun(const vector<Noun>& nouns) {
-	random_device rd; // get randomness from system
-	mt19937 gen(rd()); // random number generator 
-
-	uniform_int_distribution<> dist(0, nouns.size() - 1);
-	return nouns[dist(gen)];
-}
-
-Verb getRandomVerb(const vector<Verb>& verbs) {
-	random_device rd; // get randomness from system
-	mt19937 gen(rd()); // random number generator 
-
-	uniform_int_distribution<> dist(0, verbs.size() - 1);
-	return verbs[dist(gen)];
-}
-
-PersonNoun getRandomPersonNoun(const vector<PersonNoun>& personNouns) {
-	random_device rd; // get randomness from system
-	mt19937 gen(rd()); // random number generator 
-
-	uniform_int_distribution<> dist(0, personNouns.size() - 1);
-	return personNouns[dist(gen)];
-}
-
-Adjective getRandomAdjective(const vector<Adjective>& adjectives) {
-	random_device rd; // get randomness from system
-	mt19937 gen(rd()); // random number generator 
-
-	uniform_int_distribution<> dist(0, adjectives.size() - 1);
-	return adjectives[dist(gen)];
-}
-
-Adverb getRandomAdverb(const vector<Adverb>& adverbs) {
-	random_device rd; // get randomness from system
-	mt19937 gen(rd()); // random number generator 
-
-	uniform_int_distribution<> dist(0, adverbs.size() - 1);
-	return adverbs[dist(gen)];
-}
-
-StartNoun getRandomStartNoun(const vector<StartNoun>& startNouns) {
-	random_device rd; // get randomness from system
-	mt19937 gen(rd()); // random number generator 
-
-	uniform_int_distribution<> dist(0, startNouns.size() - 1);
-	return startNouns[dist(gen)];
-}
-
-NounStartingVerb getRandomNounStartingVerb(const vector<NounStartingVerb> verbs) {
-	random_device rd; // get randomness from system
-	mt19937 gen(rd()); // random number generator 
-
-	uniform_int_distribution<> dist(0, verbs.size() - 1);
-	return verbs[dist(gen)];
 }
 
 // A Simple Sentence can be:
@@ -277,31 +226,36 @@ void genNounVerbAdverb(const StartNoun& noun, const NounStartingVerb& verb, cons
 }
 
 void generatePronounSimpleSentence(const vector<Pronoun>& pronouns, const vector<Verb>& verbs, const vector<PersonNoun>& personNouns, const vector<Noun>& nouns, const vector<Adjective>& adjectives, const vector<Adverb>& adverbs) {
-	Pronoun pronoun = getRandomPronoun(pronouns);
-	Verb verb = getRandomVerb(verbs);
+	Pronoun pronoun = getRandomItem(pronouns);
+	Verb verb = getRandomItem(verbs);
 
 	if (verb.hasTag("linking")) {
 		switch (coinFlip()) {
 		case 0: // use PersonNoun
 		{
 			// 5: Pronoun + Linking Verb + PersonNoun
-			PersonNoun personNoun = getRandomPersonNoun(personNouns);
+			PersonNoun personNoun = getRandomItem(personNouns);
 			genPronounLVerbPNoun(pronoun, verb, personNoun);
 			break;
 		}
 		case 1: // use Adjective
 		{
 			// 4: Pronoun + Linking Verb + Adjective
-			Adjective adjective = getRandomAdjective(adjectives);
-			while (!adjective.hasTag("person")) {
-				adjective = getRandomAdjective(adjectives); // for pronouns, if the adjective can't go with a person, choose a new one (mir introduced later)
+			Adjective adjective = getRandomItem(adjectives);
+			if (!adjective.hasTag("person")) {
+				cout << "DEBUG: adjective, " << adjective.singular << " does not have person tag for verb: " << verb.infinitive << endl;
+				cout << "Generating new sentence..." << endl;
+				generatePronounSimpleSentence(pronouns,verbs,personNouns,nouns,adjectives,adverbs); // for pronouns, if the adjective can't go with a person, make a new sentence (mir introduced later)
+				return;
 			}
-			genPronounLVerbAdjective(pronoun, verb, adjective);
-			break;
+			else {
+				genPronounLVerbAdjective(pronoun, verb, adjective);
+				break;
+			}
 		}
 		}
 	}
-	else {
+	else { // non-linking verb chosen
 		if (verb.hasTag("adverb"))
 		{
 			switch (coinFlip()) {
@@ -309,11 +263,11 @@ void generatePronounSimpleSentence(const vector<Pronoun>& pronouns, const vector
 			{
 				vector<Noun> validNouns = getValidNouns(nouns, verb);
 				if (validNouns.empty()) {
-					Adverb adverb = getRandomAdverb(adverbs);
+					Adverb adverb = getRandomItem(adverbs);
 					genPronounVerbAdverb(pronoun, verb, adverb);
 				}
 				else {
-					Noun noun = getRandomNoun(validNouns);
+					Noun noun = getRandomItem(validNouns);
 					genPronounVerbNoun(pronoun, verb, noun);
 				}
 				break;
@@ -321,7 +275,7 @@ void generatePronounSimpleSentence(const vector<Pronoun>& pronouns, const vector
 			case 1:
 			{
 				// 3: Pronoun + Verb + Adverb
-				Adverb adverb = getRandomAdverb(adverbs);
+				Adverb adverb = getRandomItem(adverbs);
 				genPronounVerbAdverb(pronoun, verb, adverb);
 				break;
 			}
@@ -333,7 +287,7 @@ void generatePronounSimpleSentence(const vector<Pronoun>& pronouns, const vector
 				cout << "No valid nouns found for this verb: " << verb.conjugate(pronoun) << endl;
 			}
 			else {
-				Noun noun = getRandomNoun(validNouns);
+				Noun noun = getRandomItem(validNouns);
 				genPronounVerbNoun(pronoun, verb, noun);
 			}
 		}
@@ -342,11 +296,11 @@ void generatePronounSimpleSentence(const vector<Pronoun>& pronouns, const vector
 }
 
 void generateNounSimpleSentence(const vector<StartNoun>& nouns, const vector<NounStartingVerb>& verbs, const vector<Adjective>& adjectives, const vector<Adverb>& adverbs) {
-	NounStartingVerb verb = getRandomNounStartingVerb(verbs);
+	NounStartingVerb verb = getRandomItem(verbs);
 	
 	if (verb.hasFirstTag("linking")) { // can only be Noun+LVerb+Adjective
 		// if linking verb, use any start noun
-		StartNoun startNoun = getRandomStartNoun(nouns);
+		StartNoun startNoun = getRandomItem(nouns);
 		// startNoun second tags must match adjective tags
 		vector<Adjective> validAdjectives = getValidAdjectives(adjectives, startNoun);
 		if (validAdjectives.empty()) {
@@ -356,7 +310,7 @@ void generateNounSimpleSentence(const vector<StartNoun>& nouns, const vector<Nou
 			return;
 		}
 		else {
-			Adjective adjective = getRandomAdjective(validAdjectives);
+			Adjective adjective = getRandomItem(validAdjectives);
 			genNounLVerbAdjective(startNoun, verb, adjective);
 			return;
 		}
@@ -374,7 +328,7 @@ void generateNounSimpleSentence(const vector<StartNoun>& nouns, const vector<Nou
 		}
 		else {
 
-			StartNoun startNoun = getRandomStartNoun(validNouns);
+			StartNoun startNoun = getRandomItem(validNouns);
 
 			switch (coinFlip()) {
 			case 0: // Noun + Verb + Noun
@@ -388,7 +342,7 @@ void generateNounSimpleSentence(const vector<StartNoun>& nouns, const vector<Nou
 					return;
 				}
 				else {
-					StartNoun secondStartNoun = getRandomStartNoun(validSecondStartNouns);
+					StartNoun secondStartNoun = getRandomItem(validSecondStartNouns);
 					genNounVerbNoun(startNoun, verb, secondStartNoun);
 					return;
 				}
@@ -397,7 +351,7 @@ void generateNounSimpleSentence(const vector<StartNoun>& nouns, const vector<Nou
 			case 1: // Noun + Verb + Adverb
 			{
 				if (verb.hasSecondTag("adverb")) {
-					Adverb adverb = getRandomAdverb(adverbs);
+					Adverb adverb = getRandomItem(adverbs);
 					genNounVerbAdverb(startNoun, verb, adverb);
 					return;
 				}

@@ -11,24 +11,13 @@
 #include <random>
 using namespace std;
 
-Pronoun getRandomPronoun(const vector<Pronoun>& pronouns);
+template <typename T>
+const T& getRandomItem(const vector<T>& items);
 
-vector<Noun> getValidNouns(const vector<Noun>& nouns, Verb& verb);
-
-vector<StartNoun> getValidStartNouns(const vector<StartNoun>& nouns, NounStartingVerb& verb);
-vector<StartNoun> getValidSecondStartNouns(const vector<StartNoun>& nouns, NounStartingVerb& verb);
-
-vector<Adjective> getValidAdjectives(const vector<Adjective>& adjectives, StartNoun& noun);
-
-Noun getRandomNoun(const vector<Noun>& nouns);
-
-Verb getRandomVerb(const vector<Verb>& verbs);
-
-PersonNoun getRandomPersonNoun(const vector<PersonNoun>& personnouns);
-
-Adjective getRandomAdjective(const vector<Adjective>& adjectives);
-
-Adverb getRandomAdverb(const vector<Adverb>& adverbs);
+vector<Noun> getValidNouns(const vector<Noun>& nouns, const Verb& verb);
+vector<StartNoun> getValidStartNouns(const vector<StartNoun>& nouns, const NounStartingVerb& verb);
+vector<StartNoun> getValidSecondStartNouns(const vector<StartNoun>& nouns, const NounStartingVerb& verb);
+vector<Adjective> getValidAdjectives(const vector<Adjective>& adjectives, const StartNoun& noun);
 
 void genPronounLVerbPNoun(const Pronoun& pronoun, const Verb& verb, const PersonNoun& personNoun);
 void genPronounLVerbAdjective(const Pronoun& pronoun, const Verb& verb, const Adjective& adjective);
