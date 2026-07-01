@@ -65,167 +65,182 @@ vector<Adjective> getValidAdjectives(const vector<Adjective>& adjectives, const 
 // 6: Noun + Linking Verb + Adjective
 
 // 5: Pronoun + Linking Verb + PersonNoun
-void genPronounLVerbPNoun(const Pronoun& pronoun, const Verb& verb, const PersonNoun& personNoun) {
-	cout << "Pronoun + Linking Verb + PersonNoun" << endl; // DEBUG
+string genPronounLVerbPNoun(const Pronoun& pronoun, const Verb& verb, const PersonNoun& personNoun) {
+	// cout << "Pronoun + Linking Verb + PersonNoun" << endl; // DEBUG
 	if (pronoun.number == "plural") {
-		cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.plural << "." << endl;
+		return capitalizeFirst(pronoun.word) + " " + verb.conjugate(pronoun) + " " + personNoun.plural + ".";
+		//cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.plural << "." << endl;
 	}
 	else if (pronoun.word == "sie") { // she/her
-		cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.feminine << "." << endl;
+		return capitalizeFirst(pronoun.word) + " " + verb.conjugate(pronoun) + " " + personNoun.feminine + ".";
+		//cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.feminine << "." << endl;
 	}
 	else
-		cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.masculine << "." << endl;
+		return capitalizeFirst(pronoun.word) + " " + verb.conjugate(pronoun) + " " + personNoun.masculine + ".";
+		//cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << personNoun.masculine << "." << endl;
 }
 
 // 4: Pronoun + Linking Verb + Adjective
-void genPronounLVerbAdjective(const Pronoun& pronoun, const Verb& verb, const Adjective& adjective) {
-	cout << "Pronoun + Linking Verb + Adjective" << endl; // DEBUG 
+string genPronounLVerbAdjective(const Pronoun& pronoun, const Verb& verb, const Adjective& adjective) {
+	//cout << "Pronoun + Linking Verb + Adjective" << endl; // DEBUG 
 	// Pronoun will always use singular adjective at the end 
-	cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << adjective.singular << "." << endl;
+	//cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << adjective.singular << "." << endl;
+	return capitalizeFirst(pronoun.word) + " " + verb.conjugate(pronoun) + " " + adjective.singular + ".";
 }
 
 // 6: Noun + Linking Verb + Adjective
-void genNounLVerbAdjective(const StartNoun& noun, const NounStartingVerb& verb, const Adjective& adjective) {
-	cout << "Noun + Linking Verb + Adjective" << endl; // DEBUG 
+string genNounLVerbAdjective(const StartNoun& noun, const NounStartingVerb& verb, const Adjective& adjective) {
+	//cout << "Noun + Linking Verb + Adjective" << endl; // DEBUG 
 	if (noun.otherGender != "neuter") {
 		// flip for Masc, Fem, or Plural Noun
 		switch (threeSideDice()) {
 		case 0: // noun is masculine
 		{
-			cout << "DEBUG: " << "flipped masculine" << endl;
+			//cout << "DEBUG: " << "flipped masculine" << endl;
 			if (noun.otherGender == "feminine") { // if we flipped to use masculine, but the noun can't be, just use the plural form
-				cout << "but the noun is only feminine. Using plural instead." << endl; // DEBUG
-				cout << "Die" << " " << noun.plural << " " << verb.plural << " " << adjective.singular << "." << endl;
+				//cout << "but the noun is only feminine. Using plural instead." << endl; // DEBUG
+				return "Die " + noun.plural + " " + verb.plural + " " + adjective.singular + ".";
+				//cout << "Die" << " " << noun.plural << " " << verb.plural << " " << adjective.singular << "." << endl;
 			}
 			else {
-				cout << "Der" << " " << noun.masc << " " << verb.singular << " " << adjective.singular << "." << endl;
+				return "Der " + noun.masc + " " + verb.singular + " " + adjective.singular + ".";
+				//cout << "Der" << " " << noun.masc << " " << verb.singular << " " << adjective.singular << "." << endl;
 			}
-			break;
 		}
 		case 1: // noun is feminine
 		{
-			cout << "DEBUG: " << "flipped feminine" << endl;
+			//cout << "DEBUG: " << "flipped feminine" << endl;
 			if (noun.otherGender == "masculine") { // if we flipped fem, but the noun can't be, just use plural
-				cout << "but the noun is only masculine. Using plural instead." << endl; // DEBUG
-				cout << "Die" << " " << noun.plural << " " << verb.plural << " " << adjective.singular << "." << endl;
+				//cout << "but the noun is only masculine. Using plural instead." << endl; // DEBUG
+				return "Die " + noun.plural + " " + verb.plural + " " + adjective.singular + ".";
+				//cout << "Die" << " " << noun.plural << " " << verb.plural << " " << adjective.singular << "." << endl;
 			}
 			else {
-				cout << "Die" << " " << noun.fem << " " << verb.singular << " " << adjective.singular << "." << endl;
+				return "Die " + noun.fem + " " + verb.singular + " " + adjective.singular + ".";
+				//cout << "Die" << " " << noun.fem << " " << verb.singular << " " << adjective.singular << "." << endl;
 			}
-			break;
 		}
 		case 2: // noun is plural
 		{
-			cout << "DEBUG: " << "flipped plural" << endl;
-			cout << "Die" << " " << noun.plural << " " << verb.plural << " " << adjective.singular << "." << endl;
-			break;
+			//cout << "DEBUG: " << "flipped plural" << endl;
+			return "Die " + noun.plural + " " + verb.plural + " " + adjective.singular + ".";
+			//cout << "Die" << " " << noun.plural << " " << verb.plural << " " << adjective.singular << "." << endl;
 		}
 		}
 	}
 	else { // for Wasser, can only use plural Das
-		cout << "Das" << " " << noun.plural << " " << verb.singular << " " << adjective.singular << "." << endl;
+		return "Das " + noun.plural + " " + verb.singular + " " + adjective.singular + ".";
+		//cout << "Das" << " " << noun.plural << " " << verb.singular << " " << adjective.singular << "." << endl;
 	}
 }
 
 // 2: Pronoun + Verb + Noun
-void genPronounVerbNoun(const Pronoun& pronoun, const Verb& verb, const Noun& noun) {
-	cout << "Pronoun + Verb + Noun" << endl; // DEBUG 
-	cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << noun.noun << "." << endl;
+string genPronounVerbNoun(const Pronoun& pronoun, const Verb& verb, const Noun& noun) {
+	//cout << "Pronoun + Verb + Noun" << endl; // DEBUG 
+	return capitalizeFirst(pronoun.word) + " " + verb.conjugate(pronoun) + " " + noun.noun + ".";
+	//cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << noun.noun << "." << endl;
 }
 
 // 0: Noun + Verb + Noun
-void genNounVerbNoun(const StartNoun& noun, const NounStartingVerb& verb, const StartNoun& secondNoun) {
-	cout << "Noun + Verb + Noun" << endl; // DEBUG 
+string genNounVerbNoun(const StartNoun& noun, const NounStartingVerb& verb, const StartNoun& secondNoun) {
+	//cout << "Noun + Verb + Noun" << endl; // DEBUG 
 	if (noun.otherGender != "neuter") {
 		// flip for Masc, Fem, or Plural Noun
 		switch (threeSideDice()) {
 		case 0: // noun is masculine
 		{
-			cout << "DEBUG: " << "flipped masculine" << endl;
+			//cout << "DEBUG: " << "flipped masculine" << endl;
 			if (noun.otherGender == "feminine") { // if we flipped to use masculine, but the noun can't be, just use the plural form
-				cout << "but the noun is only feminine. Using plural instead." << endl; // DEBUG
-				cout << "Die" << " " << noun.plural << " " << verb.plural << " " << secondNoun.masc << "." << endl;
+				//cout << "but the noun is only feminine. Using plural instead." << endl; // DEBUG
+				//cout << "Die" << " " << noun.plural << " " << verb.plural << " " << secondNoun.masc << "." << endl;
+				return "Die " + noun.plural + " " + verb.plural + " " + secondNoun.masc + ".";
 			}
 			else {
-				cout << "Der" << " " << noun.masc << " " << verb.singular << " " << secondNoun.masc << "." << endl;
+				return "Der " + noun.masc + " " + verb.singular + " " + secondNoun.masc + ".";
+				//cout << "Der" << " " << noun.masc << " " << verb.singular << " " << secondNoun.masc << "." << endl;
 			}
-			break;
 		}
 		case 1: // noun is feminine
 		{
-			cout << "DEBUG: " << "flipped feminine" << endl;
+			//cout << "DEBUG: " << "flipped feminine" << endl;
 			if (noun.otherGender == "masculine") { // if we flipped fem, but the noun can't be, just use plural
-				cout << "but the noun is only masculine. Using plural instead." << endl; // DEBUG
-				cout << "Die" << " " << noun.plural << " " << verb.plural << " " << secondNoun.masc << "." << endl;
+				//cout << "but the noun is only masculine. Using plural instead." << endl; // DEBUG
+				//cout << "Die" << " " << noun.plural << " " << verb.plural << " " << secondNoun.masc << "." << endl;
+				return "Die " + noun.plural + " " + verb.plural + " " + secondNoun.masc + ".";
 			}
 			else {
-				cout << "Die" << " " << noun.fem << " " << verb.singular << " " << secondNoun.masc << "." << endl;
+				return "Die " + noun.fem + " " + verb.singular + " " + secondNoun.masc + ".";
+				//cout << "Die" << " " << noun.fem << " " << verb.singular << " " << secondNoun.masc << "." << endl;
 			}
-			break;
 		}
 		case 2: // noun is plural
 		{
-			cout << "DEBUG: " << "flipped plural" << endl;
-			cout << "Die" << " " << noun.plural << " " << verb.plural << " " << secondNoun.masc << "." << endl;
-			break;
+			//cout << "DEBUG: " << "flipped plural" << endl;
+			//cout << "Die" << " " << noun.plural << " " << verb.plural << " " << secondNoun.masc << "." << endl;
+			return "Die " + noun.plural + " " + verb.plural + " " + secondNoun.masc + ".";
 		}
 		}
 	}
 	else { // for Wasser, can only use plural Das
-		cout << "Das" << " " << noun.plural << " " << verb.singular << " " << secondNoun.masc << "." << endl;
+		return "Das " + noun.plural + " " + verb.singular + " " + secondNoun.masc + ".";
+		//cout << "Das" << " " << noun.plural << " " << verb.singular << " " << secondNoun.masc << "." << endl;
 	}
 }
 
 // 3: Pronoun + Verb + Adverb
-void genPronounVerbAdverb(const Pronoun& pronoun, const Verb& verb, const Adverb& adverb) {
-	cout << "Pronoun + Verb + Adverb" << endl;// DEBUG
-	cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << adverb.adverb << "." << endl;
+string genPronounVerbAdverb(const Pronoun& pronoun, const Verb& verb, const Adverb& adverb) {
+	//cout << "Pronoun + Verb + Adverb" << endl;// DEBUG
+	//cout << capitalizeFirst(pronoun.word) << " " << verb.conjugate(pronoun) << " " << adverb.adverb << "." << endl;
+	return capitalizeFirst(pronoun.word) + " " + verb.conjugate(pronoun) + " " + adverb.adverb + ".";
 }
 
 // 1: Noun + Verb + Adverb
-void genNounVerbAdverb(const StartNoun& noun, const NounStartingVerb& verb, const Adverb& adverb) {
-	cout << "Noun + Verb + Adverb" << endl;// DEBUG
+string genNounVerbAdverb(const StartNoun& noun, const NounStartingVerb& verb, const Adverb& adverb) {
+	//cout << "Noun + Verb + Adverb" << endl;// DEBUG
 	if (noun.otherGender != "neuter") {
 		// flip for Masc, Fem, or Plural Noun
 		switch (threeSideDice()) {
 		case 0: // noun is masculine
 		{
-			cout << "DEBUG: " << "flipped masculine" << endl;
+			//cout << "DEBUG: " << "flipped masculine" << endl;
 			if (noun.otherGender == "feminine") { // if we flipped to use masculine, but the noun can't be, just use the plural form
-				cout << "but the noun is only feminine. Using plural instead." << endl; // DEBUG
-				cout << "Die" << " " << noun.plural << " " << verb.plural << " " << adverb.adverb << "." << endl;
+				//cout << "but the noun is only feminine. Using plural instead." << endl; // DEBUG
+				//cout << "Die" << " " << noun.plural << " " << verb.plural << " " << adverb.adverb << "." << endl;
+				return "Die " + noun.plural + " " + verb.plural + " " + adverb.adverb + ".";
 			}
 			else {
-				cout << "Der" << " " << noun.masc << " " << verb.singular << " " << adverb.adverb << "." << endl;
+				//cout << "Der" << " " << noun.masc << " " << verb.singular << " " << adverb.adverb << "." << endl;
+				return "Der " + noun.masc + " " + verb.singular + " " + adverb.adverb + ".";
 			}
-			break;
 		}
 		case 1: // noun is feminine
 		{
-			cout << "DEBUG: " << "flipped feminine" << endl;
+			//cout << "DEBUG: " << "flipped feminine" << endl;
 			if (noun.otherGender == "masculine") { // if we flipped fem, but the noun can't be, just use plural
-				cout << "but the noun is only masculine. Using plural instead." << endl; // DEBUG
-				cout << "Die" << " " << noun.plural << " " << verb.plural << " " << adverb.adverb << "." << endl;
+				//cout << "but the noun is only masculine. Using plural instead." << endl; // DEBUG
+				//cout << "Die" << " " << noun.plural << " " << verb.plural << " " << adverb.adverb << "." << endl;
+				return "Die " + noun.plural + " " + verb.plural + " " + adverb.adverb + ".";
 			}
 			else {
-				cout << "Die" << " " << noun.fem << " " << verb.singular << " " << adverb.adverb << "." << endl;
+				//cout << "Die" << " " << noun.fem << " " << verb.singular << " " << adverb.adverb << "." << endl;
+				return "Die " + noun.fem + " " + verb.singular + " " + adverb.adverb + ".";
 			}
-			break;
 		}
 		case 2: // noun is plural
 		{
-			cout << "DEBUG: " << "flipped plural" << endl;
-			cout << "Die" << " " << noun.plural << " " << verb.plural << " " << adverb.adverb << "." << endl;
-			break;
+			//cout << "DEBUG: " << "flipped plural" << endl;
+			//cout << "Die" << " " << noun.plural << " " << verb.plural << " " << adverb.adverb << "." << endl;
+			return "Die " + noun.plural + " " + verb.plural + " " + adverb.adverb + ".";
 		}
 		}
 	}
 	else { // for Wasser, can only use plural Das
-		cout << "Das" << " " << noun.plural << " " << verb.singular << " " << adverb.adverb << "." << endl;
+		//cout << "Das" << " " << noun.plural << " " << verb.singular << " " << adverb.adverb << "." << endl;
+		return "Das " + noun.plural + " " + verb.singular + " " + adverb.adverb + ".";
 	}
 }
 
-void generatePronounSimpleSentence(const vector<Pronoun>& pronouns, const vector<Verb>& verbs, const vector<PersonNoun>& personNouns, const vector<Noun>& nouns, const vector<Adjective>& adjectives, const vector<Adverb>& adverbs) {
+string generatePronounSimpleSentence(const vector<Pronoun>& pronouns, const vector<Verb>& verbs, const vector<PersonNoun>& personNouns, const vector<Noun>& nouns, const vector<Adjective>& adjectives, const vector<Adverb>& adverbs) {
 	Pronoun pronoun = getRandomItem(pronouns);
 	Verb verb = getRandomItem(verbs);
 
@@ -235,24 +250,23 @@ void generatePronounSimpleSentence(const vector<Pronoun>& pronouns, const vector
 		{
 			// 5: Pronoun + Linking Verb + PersonNoun
 			PersonNoun personNoun = getRandomItem(personNouns);
-			genPronounLVerbPNoun(pronoun, verb, personNoun);
-			break;
+			return genPronounLVerbPNoun(pronoun, verb, personNoun);
 		}
 		case 1: // use Adjective
 		{
 			// 4: Pronoun + Linking Verb + Adjective
 			Adjective adjective = getRandomItem(adjectives);
 			if (!adjective.hasTag("person")) {
-				cout << "DEBUG: adjective, " << adjective.singular << " does not have person tag for verb: " << verb.infinitive << endl;
-				cout << "Generating new sentence..." << endl;
-				generatePronounSimpleSentence(pronouns,verbs,personNouns,nouns,adjectives,adverbs); // for pronouns, if the adjective can't go with a person, make a new sentence (mir introduced later)
-				return;
+				//cout << "DEBUG: adjective, " << adjective.singular << " does not have person tag for verb: " << verb.infinitive << endl;
+				//cout << "Generating new sentence..." << endl;
+				return generatePronounSimpleSentence(pronouns,verbs,personNouns,nouns,adjectives,adverbs); // for pronouns, if the adjective can't go with a person, make a new sentence (mir introduced later)
 			}
 			else {
-				genPronounLVerbAdjective(pronoun, verb, adjective);
-				break;
+				return genPronounLVerbAdjective(pronoun, verb, adjective);
 			}
 		}
+		default:
+			return "ERROR";
 		}
 	}
 	else { // non-linking verb chosen
@@ -264,38 +278,38 @@ void generatePronounSimpleSentence(const vector<Pronoun>& pronouns, const vector
 				vector<Noun> validNouns = getValidNouns(nouns, verb);
 				if (validNouns.empty()) {
 					Adverb adverb = getRandomItem(adverbs);
-					genPronounVerbAdverb(pronoun, verb, adverb);
+					return genPronounVerbAdverb(pronoun, verb, adverb);
 				}
 				else {
 					Noun noun = getRandomItem(validNouns);
-					genPronounVerbNoun(pronoun, verb, noun);
+					return genPronounVerbNoun(pronoun, verb, noun);
 				}
-				break;
 			}
 			case 1:
 			{
 				// 3: Pronoun + Verb + Adverb
 				Adverb adverb = getRandomItem(adverbs);
-				genPronounVerbAdverb(pronoun, verb, adverb);
-				break;
+				return genPronounVerbAdverb(pronoun, verb, adverb);
 			}
+			default:
+				return "ERROR";
 			}
 		}
 		else {
 			vector<Noun> validNouns = getValidNouns(nouns, verb);
 			if (validNouns.empty()) {
-				cout << "No valid nouns found for this verb: " << verb.conjugate(pronoun) << endl;
+				return "No valid nouns found for this verb: " + verb.conjugate(pronoun);
 			}
 			else {
 				Noun noun = getRandomItem(validNouns);
-				genPronounVerbNoun(pronoun, verb, noun);
+				return genPronounVerbNoun(pronoun, verb, noun);
 			}
 		}
 	}
-	return;
+	return "ERROR";
 }
 
-void generateNounSimpleSentence(const vector<StartNoun>& nouns, const vector<NounStartingVerb>& verbs, const vector<Adjective>& adjectives, const vector<Adverb>& adverbs) {
+string generateNounSimpleSentence(const vector<StartNoun>& nouns, const vector<NounStartingVerb>& verbs, const vector<Adjective>& adjectives, const vector<Adverb>& adverbs) {
 	NounStartingVerb verb = getRandomItem(verbs);
 	
 	if (verb.hasFirstTag("linking")) { // can only be Noun+LVerb+Adjective
@@ -304,15 +318,13 @@ void generateNounSimpleSentence(const vector<StartNoun>& nouns, const vector<Nou
 		// startNoun second tags must match adjective tags
 		vector<Adjective> validAdjectives = getValidAdjectives(adjectives, startNoun);
 		if (validAdjectives.empty()) {
-			cout << "No valid adjectives for: " << startNoun.masc << " " << verb.singular << endl;
-			cout << "Generating new sentence..." << endl;
-			generateNounSimpleSentence(nouns, verbs, adjectives, adverbs);
-			return;
+			//cout << "No valid adjectives for: " << startNoun.masc << " " << verb.singular << endl;
+			//cout << "Generating new sentence..." << endl;
+			return generateNounSimpleSentence(nouns, verbs, adjectives, adverbs);
 		}
 		else {
 			Adjective adjective = getRandomItem(validAdjectives);
-			genNounLVerbAdjective(startNoun, verb, adjective);
-			return;
+			return genNounLVerbAdjective(startNoun, verb, adjective);
 		}
 	}
 	else { // can be either Noun+Verb+Noun or Noun+Verb+Adverb
@@ -321,10 +333,9 @@ void generateNounSimpleSentence(const vector<StartNoun>& nouns, const vector<Nou
 
 		if (validNouns.empty())
 		{
-			cout << "No valid nouns for the verb: " << verb.singular << endl;
-			cout << "Generating new sentence..." << endl;
-			generateNounSimpleSentence(nouns, verbs, adjectives, adverbs);
-			return;
+			//cout << "No valid nouns for the verb: " << verb.singular << endl;
+			//cout << "Generating new sentence..." << endl;
+			return generateNounSimpleSentence(nouns, verbs, adjectives, adverbs);
 		}
 		else {
 
@@ -336,34 +347,31 @@ void generateNounSimpleSentence(const vector<StartNoun>& nouns, const vector<Nou
 				// second tags of verb and second startNoun must match to be valid
 				vector<StartNoun> validSecondStartNouns = getValidSecondStartNouns(nouns, verb);
 				if (validSecondStartNouns.empty()) {
-					cout << "No valid ending noun for verb: " << verb.singular << endl;
-					cout << "Generating new sentence..." << endl;
-					generateNounSimpleSentence(nouns, verbs, adjectives, adverbs);
-					return;
+					//cout << "No valid ending noun for verb: " << verb.singular << endl;
+					//cout << "Generating new sentence..." << endl;
+					return generateNounSimpleSentence(nouns, verbs, adjectives, adverbs);
 				}
 				else {
 					StartNoun secondStartNoun = getRandomItem(validSecondStartNouns);
-					genNounVerbNoun(startNoun, verb, secondStartNoun);
-					return;
+					return genNounVerbNoun(startNoun, verb, secondStartNoun);
 				}
-				break;
 			}
 			case 1: // Noun + Verb + Adverb
 			{
 				if (verb.hasSecondTag("adverb")) {
 					Adverb adverb = getRandomItem(adverbs);
-					genNounVerbAdverb(startNoun, verb, adverb);
-					return;
+					return genNounVerbAdverb(startNoun, verb, adverb);
 				}
 				else {
-					cout << "Verb: " << verb.singular << ", " << "does not fit with adverbs." << endl;
-					cout << "Generating new sentence..." << endl;
-					generateNounSimpleSentence(nouns, verbs, adjectives, adverbs);
-					return;
+					//cout << "Verb: " << verb.singular << ", " << "does not fit with adverbs." << endl;
+					//cout << "Generating new sentence..." << endl;
+					return generateNounSimpleSentence(nouns, verbs, adjectives, adverbs);
 				}
-				break;
 			}
+			default: 
+				return "ERROR";
 			}
 		}
 	}
+	return "ERROR";
 }

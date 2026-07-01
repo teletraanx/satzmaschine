@@ -30,10 +30,10 @@ int main()
     do {
         switch (coinFlip()) {
         case 0:
-            generatePronounSimpleSentence(pronouns, verbs, personnouns, nouns, adjectives, adverbs);
+            cout << generatePronounSimpleSentence(pronouns, verbs, personnouns, nouns, adjectives, adverbs) << endl;
             break;
         case 1:
-            generateNounSimpleSentence(startNouns, nounStartingVerbs, adjectives, adverbs);
+            cout << generateNounSimpleSentence(startNouns, nounStartingVerbs, adjectives, adverbs) << endl;
             break;
         }
         getline(cin, answer);

@@ -19,13 +19,13 @@ vector<StartNoun> getValidStartNouns(const vector<StartNoun>& nouns, const NounS
 vector<StartNoun> getValidSecondStartNouns(const vector<StartNoun>& nouns, const NounStartingVerb& verb);
 vector<Adjective> getValidAdjectives(const vector<Adjective>& adjectives, const StartNoun& noun);
 
-void genPronounLVerbPNoun(const Pronoun& pronoun, const Verb& verb, const PersonNoun& personNoun);
-void genPronounLVerbAdjective(const Pronoun& pronoun, const Verb& verb, const Adjective& adjective);
-void genNounLVerbAdjective(const StartNoun& noun, const NounStartingVerb& verb, const Adjective& adjective);
-void genPronounVerbNoun(const Pronoun& pronoun, const Verb& verb, const Noun& noun);
-void genNounVerbNoun(const StartNoun& startNoun, const NounStartingVerb& verb, const StartNoun& secondNoun);
-void genPronounVerbAdverb(const Pronoun& pronoun, const Verb& verb, const Adverb& adverb);
-void genNounVerbAdverb(const StartNoun& noun, const NounStartingVerb& verb, const Adverb& adverb);
+string genPronounLVerbPNoun(const Pronoun& pronoun, const Verb& verb, const PersonNoun& personNoun);
+string genPronounLVerbAdjective(const Pronoun& pronoun, const Verb& verb, const Adjective& adjective);
+string genNounLVerbAdjective(const StartNoun& noun, const NounStartingVerb& verb, const Adjective& adjective);
+string genPronounVerbNoun(const Pronoun& pronoun, const Verb& verb, const Noun& noun);
+string genNounVerbNoun(const StartNoun& startNoun, const NounStartingVerb& verb, const StartNoun& secondNoun);
+string genPronounVerbAdverb(const Pronoun& pronoun, const Verb& verb, const Adverb& adverb);
+string genNounVerbAdverb(const StartNoun& noun, const NounStartingVerb& verb, const Adverb& adverb);
 
-void generatePronounSimpleSentence(const vector<Pronoun>& pronouns, const vector<Verb>& verbs, const vector<PersonNoun>& personNouns, const vector<Noun>& nouns, const vector<Adjective>& adjectives, const vector<Adverb>& adverbs);
-void generateNounSimpleSentence(const vector<StartNoun>& nouns, const vector<NounStartingVerb>& verbs, const vector<Adjective>& adjectives, const vector<Adverb>& adverbs);
+string generatePronounSimpleSentence(const vector<Pronoun>& pronouns, const vector<Verb>& verbs, const vector<PersonNoun>& personNouns, const vector<Noun>& nouns, const vector<Adjective>& adjectives, const vector<Adverb>& adverbs);
+string generateNounSimpleSentence(const vector<StartNoun>& nouns, const vector<NounStartingVerb>& verbs, const vector<Adjective>& adjectives, const vector<Adverb>& adverbs);
